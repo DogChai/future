@@ -18,12 +18,27 @@ export default {
   },
   methods: {
     toshow: function() {
+      this.sideColor(1)
       this.$router.push({ path: "/show" });
+      this.$store.state.sideWhere = '60px';
     },
 
     tosee: function() {
+      this.sideColor(3)
       this.$router.push({ path: "/see" });
-    }
+      this.$store.state.sideWhere = '170px';
+    },
+    sideColor: function (num) {
+                let liDom = document.getElementsByClassName('sideLi');
+                for (var i = 0; i < liDom.length; i++) {
+                    liDom[i].style.color = 'rgba(255,255,255,0.3)'
+                    liDom[i].children[0].style.opacity = '';
+                    liDom[i].children[0].style.left = '';
+                }
+                liDom[num].style.color = 'rgba(0,0,0,0.9)';
+                liDom[num].children[0].style.opacity = '1';
+                liDom[num].children[0].style.left = '-25px';
+            }
   },
   mounted: function() {
     this.downName = true;
@@ -45,8 +60,8 @@ export default {
 }
 
 .down {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 32px;
   position: absolute;
   bottom: 10px;
   left: 50%;
@@ -60,8 +75,8 @@ export default {
 }
 
 .up {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 32px;
   position: absolute;
   top: 10px;
   left: 50%;

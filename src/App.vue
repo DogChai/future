@@ -2,26 +2,26 @@
   <div id="app">
     <div class="side-right">
       <ul class="side-right-ul">
-        <div class="side-choose" :style="{top: chooseTop}"></div>
-        <li class="sideLi" data-index='0' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/index' data-where="5">
+        <div class="side-choose" :style="{top: this.$store.state.sideWhere}"></div>
+        <li class="sideLi" style="color: rgba(0, 0, 0, 0.9);" data-index='0' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/index' data-where="5">
           萌萌哒
-          
+          <img src="./assets/images/index.png" alt="" style="opacity: 1; left: -25px">
         </li>
         <li class="sideLi" data-index='1' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/show' data-where="60">
           新世界
-          <!-- <div class="side-choose"></div> -->
+          <img src="./assets/images/show.png" alt="">
         </li>
         <li class="sideLi" data-index='2' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/music' data-where="115">
           用心听
-          <!-- <div class="side-choose"></div> -->
+          <img src="./assets/images/music.png" alt="">
         </li>
         <li class="sideLi" data-index='3' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/see' data-where="170">
           用眼看
-          <!-- <div class="side-choose"></div> -->
+          <img src="./assets/images/eye.png" alt="">
         </li>
         <li class="sideLi" data-index='4' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/eat' data-where="225">
           用嘴吃
-          <!-- <div class="side-choose"></div> -->
+          <img src="./assets/images/eat.png" alt="">
         </li>
       </ul>
     </div>
@@ -37,19 +37,22 @@ export default {
   data() {
     return {
       chooseTop: '5px',
-      ifClick: false,
+      ifClick: true,
       clickTop: '5px',
     }
   },
   methods: {
     moveChoose: function(e) {
       this.chooseTop = e.currentTarget.dataset.where + 'px';
+      this.$store.state.sideWhere = this.chooseTop;
     },
     leaveLi: function(e) {
       if(this.ifClick) {
         this.chooseTop = this.clickTop;
+        this.$store.state.sideWhere = this.chooseTop;                                             
       }else {
         this.chooseTop = e.currentTarget.dataset.where + 'px';
+        this.$store.state.sideWhere = this.chooseTop;
       }
     },
     clickLi: function(e) {
@@ -61,12 +64,15 @@ export default {
       let liDom = document.getElementsByClassName('sideLi');
       for(var i=0; i<liDom.length; i++) {
         liDom[i].style.color = 'rgba(255,255,255,0.3)'
+        liDom[i].children[0].style.opacity = '';
+        liDom[i].children[0].style.left = '';
       }
       liDom[e.currentTarget.dataset.index].style.color = 'rgba(0,0,0,0.9)'
+      liDom[e.currentTarget.dataset.index].children[0].style.opacity = '1'
+      liDom[e.currentTarget.dataset.index].children[0].style.left = '-25px'
     }
   },
   mounted: function() {
-
   }
 }
 </script>
@@ -76,7 +82,13 @@ export default {
 </style>
 
 <style>
+@font-face {
+  font-family: "dogchai";
+  src: url('./assets/font/type.ttf');
+}
+
 #app {
+  font-family: 'dogchai';
   text-align: center;
   color: #2c3e50;
   position: fixed;
@@ -143,9 +155,24 @@ export default {
   padding: 4px 4px;
 }
 
+.sideLi img {
+  position: absolute;
+  left: -70px;
+  /* left: -70px; */
+  top: 15px;
+  height: 20px;
+  widows: 20px;
+  opacity: 0;
+  transition: all .3s ease;
+}
+
+.side-right-ul li:hover img{
+  left: -25px;
+  opacity: 1;
+}
+
 .side-right-ul li:hover {
   color: rgba(0,0,0,0.9);
-  /* background-color: rgba(23,23,23,0.6); */
 }
 
 .side-right-ul li:hover .side-choose {
