@@ -27,7 +27,7 @@
       toshow: function () {
         this.sideColor(1)
         this.$router.push({ path: "/show" });
-        this.$store.state.sideWhere = '60px';
+        this.$store.state.clickWhere = '60px';
       },
       sideColor: function (num) {
         let liDom = document.getElementsByClassName('sideLi');
@@ -38,7 +38,7 @@
         }
         liDom[num].style.color = 'rgba(0,0,0,0.9)';
         liDom[num].children[0].style.opacity = '1';
-        liDom[num].children[0].style.left = '-25px';
+        liDom[num].children[0].style.left = '-18px';
       }
     },
     mounted: function () {
@@ -78,7 +78,7 @@
     top: 0;
     background-color: rgb(32, 98, 240);
     box-sizing: border-box;
-    padding-top: 260px;
+    /* padding-top: 260px; */
   }
 
   .index-wrap {

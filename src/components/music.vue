@@ -1,5 +1,5 @@
 <template>
-    <div id="music">
+    <div id="music" class="music">
       <div @click="toshow" class="up animated infinite" :class="{fadeInUp: upName}" :style="{opacity: upOpacity}"><img src="../assets/images/down3.png" alt=""></div>
       <div @click="tosee" class="down animated infinite" :class="{fadeInDown: downName}" :style="{opacity: downOpacity}"><img src="../assets/images/down3.png" alt=""></div>
     </div>
@@ -20,13 +20,13 @@ export default {
     toshow: function() {
       this.sideColor(1)
       this.$router.push({ path: "/show" });
-      this.$store.state.sideWhere = '60px';
+      this.$store.state.clickWhere = '60px';
     },
 
     tosee: function() {
       this.sideColor(3)
       this.$router.push({ path: "/see" });
-      this.$store.state.sideWhere = '170px';
+      this.$store.state.clickWhere = '170px';
     },
     sideColor: function (num) {
                 let liDom = document.getElementsByClassName('sideLi');
@@ -37,7 +37,7 @@ export default {
                 }
                 liDom[num].style.color = 'rgba(0,0,0,0.9)';
                 liDom[num].children[0].style.opacity = '1';
-                liDom[num].children[0].style.left = '-25px';
+                liDom[num].children[0].style.left = '-18px';
             }
   },
   mounted: function() {
@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style scoped>
-#music {
+.music {
   position: absolute;
   width: 100%;
   height: 100%;

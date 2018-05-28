@@ -1,62 +1,80 @@
 <template>
   <div id="app">
+    <control class="control"></control>
     <div class="side-right">
       <ul class="side-right-ul">
-        <div class="side-choose" :style="{top: this.$store.state.sideWhere}"></div>
+        <div class="side-choose" :style="{top: this.$store.state.clickWhere}"></div>
         <li class="sideLi" style="color: rgba(0, 0, 0, 0.9);" data-index='0' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/index' data-where="5">
           萌萌哒
-          <img src="./assets/images/index.png" alt="" style="opacity: 1; left: -25px">
+          <!-- <img src="./assets/images/index.png" alt="" style="opacity: 1; left: -25px"> -->
+          <span class="fa fa-ban sideIcon"></span>
         </li>
         <li class="sideLi" data-index='1' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/show' data-where="60">
           新世界
-          <img src="./assets/images/show.png" alt="">
+          <!-- <img src="./assets/images/show.png" alt=""> -->
+          <span class="fa fa-desktop sideIcon"></span>
         </li>
         <li class="sideLi" data-index='2' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/music' data-where="115">
           用心听
-          <img src="./assets/images/music.png" alt="">
+          <!-- <img src="./assets/images/music.png" alt=""> -->
+          <span class="fa fa-music sideIcon"></span>
         </li>
         <li class="sideLi" data-index='3' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/see' data-where="170">
           用眼看
-          <img src="./assets/images/eye.png" alt="">
+          <!-- <img src="./assets/images/eye.png" alt=""> -->
+          <span class="fa fa-eye sideIcon"></span>
         </li>
         <li class="sideLi" data-index='4' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/eat' data-where="225">
           用嘴吃
-          <img src="./assets/images/eat.png" alt="">
+          <!-- <img src="./assets/images/eat.png" alt=""> -->
+          <span class="fa fa-cutlery sideIcon"></span>
         </li>
       </ul>
     </div>
     <transition name='slide-fade'>
-      <router-view></router-view>
+      <router-view id="main-page"></router-view>
     </transition>
   </div>
 </template>
 
 <script>
+import {mapGetters,mapState} from 'vuex';
+
+//控制
+import control from './components/control'
+
 export default {
   name: 'App',
+  components: {
+    control
+  },
   data() {
     return {
-      chooseTop: '5px',
+      // chooseTop: '5px',
       ifClick: true,
       clickTop: '5px',
+      saveNum: '',
     }
   },
   methods: {
     moveChoose: function(e) {
-      this.chooseTop = e.currentTarget.dataset.where + 'px';
-      this.$store.state.sideWhere = this.chooseTop;
+      this.saveNum = this.$store.state.clickWhere;
+      // this.chooseTop = e.currentTarget.dataset.where + 'px';
+
+      this.$store.state.clickWhere = e.currentTarget.dataset.where + 'px';
     },
     leaveLi: function(e) {
       if(this.ifClick) {
-        this.chooseTop = this.clickTop;
-        this.$store.state.sideWhere = this.chooseTop;                                             
+        // this.clickTop = this.$store.state.sideWhere;
+        // this.chooseTop = this.clickTop;
+        this.$store.state.clickWhere = this.saveNum;                                             
       }else {
         this.chooseTop = e.currentTarget.dataset.where + 'px';
         this.$store.state.sideWhere = this.chooseTop;
       }
     },
     clickLi: function(e) {
-      this.clickTop = e.currentTarget.dataset.where + 'px';
+      this.saveNum = e.currentTarget.dataset.where + 'px';
       this.ifClick = true;
       if(e.currentTarget.dataset.path !== this.$route.path) {
         this.$router.push({path: e.currentTarget.dataset.path})
@@ -69,22 +87,29 @@ export default {
       }
       liDom[e.currentTarget.dataset.index].style.color = 'rgba(0,0,0,0.9)'
       liDom[e.currentTarget.dataset.index].children[0].style.opacity = '1'
-      liDom[e.currentTarget.dataset.index].children[0].style.left = '-25px'
+      liDom[e.currentTarget.dataset.index].children[0].style.left = '-18px'
     }
   },
+  computed: {
+    ...mapState([
+
+    ])
+  },
   mounted: function() {
+    console.log(this.$store.getters.getSideWhere)
   }
 }
 </script>
 
 <style>
 @import "./assets/style/animate.css";
+@import "./assets/style/fontawesome";
 </style>
 
 <style>
 @font-face {
   font-family: "dogchai";
-  src: url('./assets/font/type.ttf');
+  src: url('./assets/fonts/type.ttf');
 }
 
 #app {
@@ -98,7 +123,25 @@ export default {
   right: 0;
   width: 100%;
   height: 100%;
+}
 
+#main-page {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  bottom: 0;
+  height: auto;
+}
+
+.control {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 60px;
+  top: 0;
+  width: 100%;
 }
 
 .side-right {
@@ -129,7 +172,7 @@ export default {
   /* top: 8px; */
   height: 40px;
   /* bottom: 8px; */
-  left: -40px;
+  left: -30px;
   background-color: rgba(255,255,255,0.6);
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -155,6 +198,21 @@ export default {
   padding: 4px 4px;
 }
 
+.sideIcon {
+  position: absolute;
+  left: -50px;
+  top: 17px;
+  height: 18px;
+  width: 18px;
+  transition: left .3s ease;
+  opacity: 0;
+}
+
+.side-right-ul li:hover span {
+  left: -18px;
+  opacity: 1;
+}
+
 .sideLi img {
   position: absolute;
   left: -70px;
@@ -172,7 +230,7 @@ export default {
 }
 
 .side-right-ul li:hover {
-  color: rgba(0,0,0,0.9);
+  /* color: rgba(0,0,0,0.9); */
 }
 
 .side-right-ul li:hover .side-choose {

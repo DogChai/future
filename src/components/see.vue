@@ -1,5 +1,5 @@
 <template>
-  <div id="music">
+  <div id="music" class="music">
     <div @click="tomusic" class="up animated infinite" :class="{fadeInUp: upName}" :style="{opacity: upOpacity}">
       <img src="../assets/images/down3.png" alt="">
     </div>
@@ -24,13 +24,13 @@
       tomusic: function () {
         this.sideColor(2)
         this.$router.push({ path: "/music" });
-        this.$store.state.sideWhere = '115px';
+        this.$store.state.clickWhere = '115px';
       },
 
       toeat: function () {
         this.sideColor(4)
         this.$router.push({ path: "/eat" });
-        this.$store.state.sideWhere = '225px';
+        this.$store.state.clickWhere = '225px';
       },
       sideColor: function (num) {
                 let liDom = document.getElementsByClassName('sideLi');
@@ -41,7 +41,7 @@
                 }
                 liDom[num].style.color = 'rgba(0,0,0,0.9)';
                 liDom[num].children[0].style.opacity = '1';
-                liDom[num].children[0].style.left = '-25px';
+                liDom[num].children[0].style.left = '-18px';
             }
     },
     mounted: function () {
@@ -54,7 +54,7 @@
 </script>
 
 <style scoped>
-  #music {
+  .music {
     position: absolute;
     width: 100%;
     height: 100%;

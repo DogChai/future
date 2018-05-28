@@ -19,6 +19,7 @@ import see from '../components/see'
 //全局频谱
 import spectrum from '../components/spectrum'
 
+
 Vue.use(Router)
 
 export default new Router({
