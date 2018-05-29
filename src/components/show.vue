@@ -24,12 +24,12 @@
       tomusic: function () {
         this.sideColor(2)
         this.$router.push({ path: '/music' });
-        this.$store.state.clickWhere = '115px';
+        this.$store.state.clickWhere = '117px';
       },
       toindex: function () {
         this.sideColor(0)
         this.$router.push({ path: '/index' });
-        this.$store.state.clickWhere = '5px';
+        this.$store.state.clickWhere = '7px';
       },
       sideColor: function (num) {
                 let liDom = document.getElementsByClassName('sideLi');
@@ -83,13 +83,13 @@
   }
 
   .down img {
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
   }
 
   .up img {
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
     transform: rotate(180deg);
     -webkit-transform: rotate(180deg);
   }

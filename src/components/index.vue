@@ -27,7 +27,7 @@
       toshow: function () {
         this.sideColor(1)
         this.$router.push({ path: "/show" });
-        this.$store.state.clickWhere = '60px';
+        this.$store.state.clickWhere = '62px';
       },
       sideColor: function (num) {
         let liDom = document.getElementsByClassName('sideLi');
@@ -113,7 +113,7 @@
   }
 
   .down img {
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
   }
 </style>

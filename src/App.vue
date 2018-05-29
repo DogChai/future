@@ -4,30 +4,30 @@
     <div class="side-right">
       <ul class="side-right-ul">
         <div class="side-choose" :style="{top: this.$store.state.clickWhere}"></div>
-        <li class="sideLi" style="color: rgba(0, 0, 0, 0.9);" data-index='0' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/index' data-where="5">
+        <li class="sideLi" style="color: rgba(0, 0, 0, 0.9);" data-index='0' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/index' data-where="7">
           萌萌哒
           <!-- <img src="./assets/images/index.png" alt="" style="opacity: 1; left: -25px"> -->
-          <span class="fa fa-ban sideIcon"></span>
+          <i class="fa fa-moon sideIcon"></i>
         </li>
-        <li class="sideLi" data-index='1' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/show' data-where="60">
+        <li class="sideLi" data-index='1' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/show' data-where="62">
           新世界
           <!-- <img src="./assets/images/show.png" alt=""> -->
-          <span class="fa fa-desktop sideIcon"></span>
+          <i class="fa fa-sun sideIcon"></i>
         </li>
-        <li class="sideLi" data-index='2' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/music' data-where="115">
+        <li class="sideLi" data-index='2' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/music' data-where="117">
           用心听
           <!-- <img src="./assets/images/music.png" alt=""> -->
-          <span class="fa fa-music sideIcon"></span>
+          <i class="fa fa-headphones sideIcon"></i>
         </li>
-        <li class="sideLi" data-index='3' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/see' data-where="170">
+        <li class="sideLi" data-index='3' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/see' data-where="172">
           用眼看
           <!-- <img src="./assets/images/eye.png" alt=""> -->
-          <span class="fa fa-eye sideIcon"></span>
+          <i class="fa fa-bullseye sideIcon"></i>
         </li>
-        <li class="sideLi" data-index='4' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/eat' data-where="225">
+        <li class="sideLi" data-index='4' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/eat' data-where="227">
           用嘴吃
           <!-- <img src="./assets/images/eat.png" alt=""> -->
-          <span class="fa fa-cutlery sideIcon"></span>
+          <i class="fa fa-utensils sideIcon"></i>
         </li>
       </ul>
     </div>
@@ -52,7 +52,7 @@ export default {
     return {
       // chooseTop: '5px',
       ifClick: true,
-      clickTop: '5px',
+      clickTop: '7px',
       saveNum: '',
     }
   },
@@ -102,14 +102,15 @@ export default {
 </script>
 
 <style>
+@import "./assets//style/reset.css"; 
 @import "./assets/style/animate.css";
-@import "./assets/style/fontawesome";
+@import "./assets/style/fontawesome-all.css";
 </style>
 
 <style>
 @font-face {
   font-family: "dogchai";
-  src: url('./assets/fonts/type.ttf');
+  src: url('./assets/fonts/newdog.otf');
 }
 
 #app {
@@ -185,7 +186,7 @@ export default {
   position: relative;
   width: 100%;
   height: 20%;
-  line-height: 45px;
+  line-height: 44px;
   float: left;
   list-style: none;
   text-align: center;
@@ -201,14 +202,14 @@ export default {
 .sideIcon {
   position: absolute;
   left: -50px;
-  top: 17px;
+  top: 18px;
   height: 18px;
   width: 18px;
   transition: left .3s ease;
   opacity: 0;
 }
 
-.side-right-ul li:hover span {
+.side-right-ul li:hover i {
   left: -18px;
   opacity: 1;
 }

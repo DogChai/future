@@ -5,8 +5,8 @@ Vue.use(Vuex);
 
 // 变量
 const state = {
-    sideWhere: '5px',
-    clickWhere: '5px'
+    sideWhere: '7px',
+    clickWhere: '7px'
 }
 
 // 计算方法

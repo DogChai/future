@@ -2,6 +2,9 @@
     <div id="music" class="music">
       <div @click="toshow" class="up animated infinite" :class="{fadeInUp: upName}" :style="{opacity: upOpacity}"><img src="../assets/images/down3.png" alt=""></div>
       <div @click="tosee" class="down animated infinite" :class="{fadeInDown: downName}" :style="{opacity: downOpacity}"><img src="../assets/images/down3.png" alt=""></div>
+      <div>
+        
+      </div>  
     </div>
 </template>
 
@@ -20,13 +23,13 @@ export default {
     toshow: function() {
       this.sideColor(1)
       this.$router.push({ path: "/show" });
-      this.$store.state.clickWhere = '60px';
+      this.$store.state.clickWhere = '62px'; 
     },
 
     tosee: function() {
       this.sideColor(3)
       this.$router.push({ path: "/see" });
-      this.$store.state.clickWhere = '170px';
+      this.$store.state.clickWhere = '172px';
     },
     sideColor: function (num) {
                 let liDom = document.getElementsByClassName('sideLi');
@@ -56,7 +59,8 @@ export default {
   height: 100%;
   left: 0;
   top: 0;
-  background-color: rgb(96, 70, 241);
+  /* background-color: rgb(96, 70, 241); */
+  background-color: gray;
 }
 
 .down {
@@ -70,8 +74,8 @@ export default {
 }
 
 .down img {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
 }
 
 .up {
@@ -85,8 +89,8 @@ export default {
 }
 
 .up img {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
 }

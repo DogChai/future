@@ -11,7 +11,7 @@
                 <div class="control-set"></div>
             </div>
             <div class="control-right">
-                <span></span>
+                <span class="fa fa-"></span>
                 <span></span>
                 <div></div>
             </div>
