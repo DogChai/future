@@ -13,7 +13,7 @@
                 <button class="eat-btn">享用</button>
             </div>
             <div class="eat-list">
-
+                <img src="../assets/images/heart.gif" alt="">
             </div>
         </div>
 
@@ -90,7 +90,7 @@
         height: 100%;
         left: 0;
         top: 0;
-        /* background-color: rgb(238, 78, 198); */
+        background-color: rgb(238, 78, 198);
     }
 
     .eat-wrap {
