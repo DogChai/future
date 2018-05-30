@@ -9,11 +9,45 @@
 
         <div class="eat-wrap">
             <div class="eat-top">
-                <input type="text" class="eat-input" placeholder="what you eat?">
-                <button class="eat-btn">享用</button>
+                <input type="text" v-model='foodName' class="eat-input" placeholder="what you eat?">
+                <button class="eat-btn" @click='getFood'>享用</button>
             </div>
-            <div class="eat-list">
-                <img src="../assets/images/heart.gif" alt="">
+            <div class="eat-list" >
+                <div class="eat-return">
+                    <i class="fa fa-chevron-left"></i>
+                </div>
+                
+                <!-- 菜肴数量 -->
+                <div class="eat-lists" style="display: none" v-for='arr in foodData'>
+                    <p class="eat-headertext">{{arr.title}}</p>
+                    <img :src="arr.albums[0]" alt="" class="eat-headerimg">
+                </div>
+
+                <!-- 菜肴详细内容 -->
+                <div class="eat-details">
+                    <h1>红烧肉  title</h1>
+                    <p>主料: 五花肉,250g;萝卜,100g;鹌鹑蛋,20个  ingredients</p>
+                    <p>配料: 油,适量;盐,适量  burden</p>
+                    <p>步骤: steps > img , step</p>
+                    <ul>
+                        <li>
+                            <div class="left-img">
+                                <img src="http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/1/14_706ca81e0bbecefe.jpg" alt="">
+                            </div>
+                            <div class="right-text">
+                                    1.带皮五花肉 ，鹌鹑蛋，白萝卜备用。
+                            </div>
+                        </li>
+                        <li>
+                                <div class="left-img">
+                                    <img src="http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/1/14_706ca81e0bbecefe.jpg" alt="">
+                                </div>
+                                <div class="right-text">
+                                        1.带皮五花肉 ，鹌鹑蛋，白萝卜备用。
+                                </div>
+                            </li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -29,7 +63,9 @@
                 downName: false,
                 downOpacity: 0,
                 upName: false,
-                upOpacity: 0
+                upOpacity: 0,
+                foodName: '',   //菜肴名称
+                foodData: ''
             };
         },
         methods: {
@@ -54,6 +90,23 @@
                 liDom[num].style.color = 'rgba(0,0,0,0.9)';
                 liDom[num].children[0].style.opacity = '1';
                 liDom[num].children[0].style.left = '-18px';
+            },
+            getFood: function () {
+                var txt = encodeURIComponent(this.foodName);
+                var that = this;
+                console.log(txt)
+                jquery.ajax({
+                    url: 'https://apis.juhe.cn/cook/query?key=092d3c9d359567229b2dca2a9b235628&rn=3&pn=0&dtype=jsonp&menu=' + txt,
+                    dataType: 'jsonp',
+                    success: function (data) {
+                        if (data.resultcode != 200) {
+                            console.log('未找到该菜肴')
+                        } else {
+                            console.log(data.result.data);
+                            that.foodData = data.result.data;
+                        }
+                    }
+                })
             }
         },
         mounted: function () {
@@ -61,24 +114,6 @@
             this.downOpacity = 1;
             this.upName = true;
             this.upOpacity = 1;
-
-            console.log(jquery);
-            var txt = '红烧肉';
-            txt = encodeURIComponent(txt);    
-            // axios.get('http://apis.juhe.cn/cook/query?key=&menu=%E8%A5%BF%E7%BA%A2%E6%9F%BF&rn=10&pn=3')
-            //      .then(function(response) {
-            //          console.log(response);
-            //      })
-            //      .catch(function(response) {
-            //          console.log(response);
-            //      })
-            jquery.ajax({
-                url: 'https://apis.juhe.cn/cook/query?key=092d3c9d359567229b2dca2a9b235628&rn=3&pn=0&dtype=jsonp&menu=' + txt,
-                dataType: 'jsonp',
-                success: function(data) {
-                    console.log(data);
-                }
-            })
         }
     };
 </script>
@@ -93,6 +128,54 @@
         background-color: rgb(238, 78, 198);
     }
 
+    .eat-details {
+        width: 100%;
+        height: auto;
+    }
+
+    .eat-details h1 {
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+
+    .eat-details p {
+        text-align: left;
+        width: 80%;
+        height: auto;
+        margin: 10px auto;
+        font-size: 20px;
+    }
+
+    .eat-details ul {
+        list-style: none;
+        width: 100%;
+        height: auto;
+        margin-top: 20px;
+    }
+
+    .eat-details li {
+        width: 85%;
+        margin: 0 auto;
+        height: 195px;
+    }
+
+    .eat-details .left-img {
+        height: 145px;
+        width: 195px;
+        float: left;
+    }
+
+    .eat-details .right-text {
+        height: 195px;
+        width: 300px;
+        float: left;
+        /* line-height: 50px; */
+        box-sizing: border-box;
+        padding-top: 25px;
+        padding-left: 20px;
+        text-align: left;
+    }
+
     .eat-wrap {
         position: absolute;
         width: 1060px;
@@ -100,7 +183,62 @@
         bottom: 70px;
         left: 50%;
         margin-left: -530px;
-        /* background-color: rgb(243, 204, 131); */
+        background-color: rgb(243, 204, 131);
+        overflow-y: auto;
+    }
+
+    .eat-list {
+        width: 600px;
+        min-height: 10px;
+        height: auto;
+        margin: 0 auto;
+        margin-top: 20px;
+        position: relative;
+    }
+
+    .eat-lists {
+        width: 170px;
+        height: 170px;
+        border: 1px solid white;
+        float: left;
+        margin: 15px;
+        box-sizing: border-box;
+        line-height: 170px; 
+        position: relative;
+        cursor: pointer;
+    }
+
+    .eat-return {
+        width: 32px;
+        height: 25px;
+        position: absolute;
+        top: -20px;
+        left: -30px;
+        font-size: 23px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .eat-headerimg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9;
+    }
+
+    .eat-headertext {
+        position: absolute;
+        height: 35px;
+        width: 100%;
+        bottom: 0;
+        z-index: 10;
+        line-height: 35px;
+        background-color: rgba(25, 25, 25, 0.5);
+        color: white;
     }
 
     .eat-top {
@@ -110,17 +248,13 @@
         color: white;
     }
 
-    .eat-list {
-        width: 720px;
-
-    }
 
     .eat-input {
-        width: 500px;
+        width: 490px;
         height: 33px;
         float: left;
-        margin-left: 70px;
-        margin-right: 10px;  
+        margin-left: 78px;
+        margin-right: 10px;
         outline: none;
         box-sizing: border-box;
         padding-left: 10px;
@@ -141,7 +275,7 @@
         height: 33px;
         line-height: 20px;
         float: left;
-        font-family: 'dogchai'!important;
+        font-family: 'dogchai' !important;
         cursor: pointer;
         background-color: transparent;
         border: none;
