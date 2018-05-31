@@ -24,28 +24,20 @@
                 </div>
 
                 <!-- 菜肴详细内容 -->
-                <div class="eat-details">
-                    <h1>红烧肉  title</h1>
-                    <p>主料: 五花肉,250g;萝卜,100g;鹌鹑蛋,20个  ingredients</p>
-                    <p>配料: 油,适量;盐,适量  burden</p>
-                    <p>步骤: steps > img , step</p>
+                <div class="eat-details" v-for='(item,index) in foodData' v-show='index==0'>
+                    <h1>{{item.title}}</h1>
+                    <p>主料: {{item.ingredients}}</p>
+                    <p>配料: {{item.burden}}</p>
+                    <p>步骤: </p>
                     <ul>
-                        <li>
+                        <li v-for='arr in item.steps'>
                             <div class="left-img">
-                                <img src="http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/1/14_706ca81e0bbecefe.jpg" alt="">
+                                <img :src="arr.img" alt="">
                             </div>
                             <div class="right-text">
-                                    1.带皮五花肉 ，鹌鹑蛋，白萝卜备用。
+                                {{arr.step}}
                             </div>
                         </li>
-                        <li>
-                                <div class="left-img">
-                                    <img src="http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/1/14_706ca81e0bbecefe.jpg" alt="">
-                                </div>
-                                <div class="right-text">
-                                        1.带皮五花肉 ，鹌鹑蛋，白萝卜备用。
-                                </div>
-                            </li>
                     </ul>
                 </div>
             </div>
@@ -65,7 +57,8 @@
                 upName: false,
                 upOpacity: 0,
                 foodName: '',   //菜肴名称
-                foodData: ''
+                foodData: '',
+                foodShow: false
             };
         },
         methods: {
@@ -114,6 +107,20 @@
             this.downOpacity = 1;
             this.upName = true;
             this.upOpacity = 1;
+            var that = this;
+            var txt = encodeURIComponent('豆腐');
+            jquery.ajax({
+                    url: 'https://apis.juhe.cn/cook/query?key=092d3c9d359567229b2dca2a9b235628&rn=3&pn=0&dtype=jsonp&menu=' + txt,
+                    dataType: 'jsonp',
+                    success: function (data) {
+                        if (data.resultcode != 200) {
+                            console.log('未找到该菜肴')
+                        } else {
+                            console.log(data.result.data);
+                            that.foodData = data.result.data;
+                        }
+                    }
+                })
         }
     };
 </script>
@@ -156,7 +163,7 @@
     .eat-details li {
         width: 85%;
         margin: 0 auto;
-        height: 195px;
+        height: 150px;
     }
 
     .eat-details .left-img {
@@ -166,7 +173,7 @@
     }
 
     .eat-details .right-text {
-        height: 195px;
+        height: 145px;
         width: 300px;
         float: left;
         /* line-height: 50px; */
@@ -179,8 +186,8 @@
     .eat-wrap {
         position: absolute;
         width: 1060px;
-        top: 70px;
-        bottom: 70px;
+        top: 40px;
+        bottom: 40px;
         left: 50%;
         margin-left: -530px;
         background-color: rgb(243, 204, 131);
@@ -297,7 +304,7 @@
         width: 36px;
         height: 32px;
         position: absolute;
-        bottom: 10px;
+        bottom: 5px;
         left: 50%;
         margin-left: -25px;
         cursor: pointer;
@@ -312,7 +319,7 @@
         width: 36px;
         height: 32px;
         position: absolute;
-        top: 10px;
+        top: 5px;
         left: 50%;
         margin-left: -25px;
         cursor: pointer;
