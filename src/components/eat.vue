@@ -116,7 +116,7 @@
                         if (data.resultcode != 200) {
                             console.log('未找到该菜肴')
                         } else {
-                            console.log(data.result.data);
+                            console.log(data);
                             that.foodData = data.result.data;
                         }
                     }
