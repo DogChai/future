@@ -1,5 +1,7 @@
 <template>
   <div class="index">
+    <img src="../assets/images/index.png" alt="" class="page-img">
+    <div class="page-blur"></div>
     <div class="index-wrap">
       <h1 class="animated" :class='{lightSpeedIn: animateName1}'>Hello everybody</h1>
       <h1 class="animated" :class='{fadeInLeft: animateName2}'>Welcome to my home</h1>
@@ -78,7 +80,43 @@
     top: 0;
     background-color: rgb(32, 98, 240);
     box-sizing: border-box;
-    /* padding-top: 260px; */
+
+  }
+
+  .page-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+  }
+
+  .page-blur {
+    position: absolute;
+    /* width: auto;
+    height: 100%; */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    overflow: hidden;
+    background: hsla(0, 0%, 100%, 0.5);
+  }
+
+  .page-blur::after {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    filter: blur(30px);
+    margin-top: -30px;
+    overflow: hidden;
   }
 
   .index-wrap {
@@ -89,6 +127,7 @@
     left: 50%;
     margin-left: -400px;
     margin-top: -200px;
+    z-index: 101;
   }
 
   .animated {

@@ -128,13 +128,15 @@ export default {
 
 #main-page {
   position: absolute;
-  top: 60px;
+  /* top: 60px; */
+  top: 0;
   left: 0;
   right: 0;
   width: 100%;
   bottom: 0;
   height: auto;
 }
+
 
 .control {
   position: absolute;
@@ -152,7 +154,7 @@ export default {
   top: 0;
   right: 0;
   background-color: rgba(60,60,60,0);
-  z-index: 99;
+  z-index: 200;
 }
 
 .side-right-ul {
