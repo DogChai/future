@@ -1,13 +1,13 @@
 <template>
   <div class="index">
-    <img src="../assets/images/index.png" alt="" class="page-img">
+    <img src="../assets/images/mai_index.png" alt="" class="page-img">
     <div class="page-blur"></div>
     <div class="index-wrap">
-      <h1 class="animated" :class='{lightSpeedIn: animateName1}'>Hello everybody</h1>
-      <h1 class="animated" :class='{fadeInLeft: animateName2}'>Welcome to my home</h1>
-      <h1 class="animated" :class='{lightSpeedIn: animateName3}'>I will show something interesting</h1>
+      <h1 class="animated" :class='{fadeInRight: animateName1}'>Hi,大家好</h1>
+      <h1 class="animated" :class='{fadeInLeft: animateName2}'>我是 树影下的月光</h1>
+      <h1 class="animated" :class='{fadeInRight: animateName3}'>下面将会向大家展示一些令人激动的内容</h1>
     </div>
-    <div @click="toshow" class="down animated infinite" :class="{fadeInDown: downName}" :style="{opacity: downOpacity}">
+    <div @click="toshow" class="down animated infinite" :class="{bounceIn: downName}" :style="{opacity: downOpacity}">
       <img src="../assets/images/down3.png" alt="">
     </div>
   </div>
@@ -78,12 +78,12 @@
     height: 100%;
     left: 0;
     top: 0;
-    background-color: rgb(32, 98, 240);
+    /* background-color: rgb(32, 98, 240); */
     box-sizing: border-box;
 
   }
 
-  .page-img {
+  /* .page-img {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -92,32 +92,19 @@
     right: 0;
     bottom: 0;
     z-index: 99;
-  }
+    filter: blur(5px);
+  } */
 
   .page-blur {
     position: absolute;
-    /* width: auto;
-    height: 100%; */
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 100;
-    overflow: hidden;
-    background: hsla(0, 0%, 100%, 0.5);
+    z-index: 101;
+    background-color: rgba(255, 255, 255, 0.1);
   }
 
-  .page-blur::after {
-    position: absolute;
-    content: '';
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    filter: blur(30px);
-    margin-top: -30px;
-    overflow: hidden;
-  }
 
   .index-wrap {
     width: 800px;
@@ -149,6 +136,7 @@
     left: 50%;
     margin-left: -25px;
     cursor: pointer;
+    z-index: 200;
   }
 
   .down img {

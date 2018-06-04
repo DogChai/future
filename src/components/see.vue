@@ -1,9 +1,10 @@
 <template>
   <div id="music" class="music">
-    <div @click="tomusic" class="up animated infinite" :class="{fadeInUp: upName}" :style="{opacity: upOpacity}">
+    <img src="../assets/images/mai_lrc.png" alt="" class="page-img">
+    <div @click="tomusic" class="up animated infinite" :class="{bounceIn: upName}" :style="{opacity: upOpacity}">
       <img src="../assets/images/down3.png" alt="">
     </div>
-    <div @click="toeat" class="down animated infinite" :class="{fadeInDown: downName}" :style="{opacity: downOpacity}">
+    <div @click="toeat" class="down animated infinite" :class="{bounceIn: downName}" :style="{opacity: downOpacity}">
       <img src="../assets/images/down3.png" alt="">
     </div>
   </div>
@@ -60,7 +61,7 @@
     height: 100%;
     left: 0;
     top: 0;
-    background-color: rgb(153, 241, 70);
+    /* background-color: rgb(153, 241, 70); */
   }
 
   .down {

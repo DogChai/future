@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import store from './store/index.js'
 import axios from 'axios';
-
+import GeminiScrollbar from 'vue-gemini-scrollbar'
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -14,6 +14,7 @@ new Vue({
   router,
   store,
   axios,
+  GeminiScrollbar,
   components: { App },
   template: '<App/>'
 })
