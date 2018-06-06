@@ -17,6 +17,30 @@
         </div>
         <GeminiScrollbar class="my-scroll-bar">
             <div class="eat-list">
+
+                <!-- 加载动画 -->
+                <div class="lds-css ng-scope loaded">
+                    <div style="width:100%;height:100%" class="lds-ellipsis">
+                        <div>
+                            <div></div>
+                        </div>
+                        <div>
+                            <div></div>
+                        </div>
+                        <div>
+                            <div></div>
+                        </div>
+                        <div>
+                            <div></div>
+                        </div>
+                        <div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+
+
+
                 <!-- 菜肴数量 -->
                 <div v-show='foodShow' class="eat-lists" :style="{opacity: arr.opacity}" :data-index='index' @click='showDetail(index)' v-for='(arr,index) in foodData'>
                     <p class="eat-headertext">{{arr.title}}</p>
@@ -153,25 +177,26 @@
             this.upName = true;
             this.upOpacity = 1;
             var that = this;
-            var eatData = localStorage.getItem('eatData');
-            console.log(eatData);
-            this.foodName = eatData[0];
-            this.foodData = eatData[1];
-            this.foodIndex = eatData[2];
-            this.foodShow = eatData[3];
-            this.totalNum = eatData[4];
+            console.log(this.$store.state.eatData)
+            // var eatData = localStorage.getItem('eatData');
+            // console.log(eatData);
+            this.foodName = this.$store.state.eatData.foodName;
+            this.foodData = this.$store.state.eatData.foodData;
+            this.foodIndex = this.$store.state.eatData.foodIndex;
+            this.foodShow = this.$store.state.eatData.foodShow;
+            this.totalNum = this.$store.state.eatData.totalNum;
         },
         destroyed: function () {
             console.log("我已经离开了！");
             console.log(this);
-            var eatData = [
-                this.foodName,
-                this.foodData,
-                this.foodIndex,
-                this.foodShow,
-                this.totalNum
-            ]
-            localStorage.setItem('eatData', eatData);
+            var eatData = {
+                foodName:  this.foodName,
+                foodData: this.foodData,
+                foodIndex: this.foodIndex,
+                foodShow: this.foodShow,
+                totalNum: this.totalNum
+            }
+            this.$store.state.eatData = eatData;
         },
     };
 </script>

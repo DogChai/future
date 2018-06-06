@@ -6,7 +6,8 @@ Vue.use(Vuex);
 // 变量
 const state = {
     sideWhere: '7px',
-    clickWhere: '7px'
+    clickWhere: '7px',
+    eatData: {}
 }
 
 // 计算方法

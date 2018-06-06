@@ -106,6 +106,7 @@
   @import "./assets//style/reset.css";
   @import "./assets/style/animate.css";
   @import "./assets/style/fontawesome-all.css";
+  @import "./assets/style/load.css";
 </style>
 
 <style>
@@ -276,3 +277,4 @@
     opacity: 0;
   }
 </style>
+
