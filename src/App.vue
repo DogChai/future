@@ -35,6 +35,9 @@
     <transition name='slide-fade'>
       <router-view id="main-page"></router-view>
     </transition>
+    <div class="loadlogo">
+        
+    </div>
   </div>
 </template>
 
@@ -107,6 +110,7 @@
   @import "./assets/style/animate.css";
   @import "./assets/style/fontawesome-all.css";
   @import "./assets/style/load.css";
+  @import "./assets/style/hoverlogo.css";
 </style>
 
 <style>

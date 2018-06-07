@@ -1,11 +1,11 @@
 <template>
   <div id="music" class="music">
-    <img src="../assets/images/mai_lrc.png" alt="" class="page-img">
+    <img src="../assets/images/lrc.jpg" alt="" class="page-img">
     <div @click="tomusic" class="up animated infinite" :class="{bounceIn: upName}" :style="{opacity: upOpacity}">
-      <img src="../assets/images/down3.png" alt="">
+      <img src="../assets/images/down.png" alt="">
     </div>
     <div @click="toeat" class="down animated infinite" :class="{bounceIn: downName}" :style="{opacity: downOpacity}">
-      <img src="../assets/images/down3.png" alt="">
+      <img src="../assets/images/down.png" alt="">
     </div>
   </div>
 </template>

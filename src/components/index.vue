@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <img src="../assets/images/mai_index.png" alt="" class="page-img">
+    <img src="../assets/images/index.jpg" alt="" class="page-img">
     <div class="page-blur"></div>
     <div class="index-wrap">
       <h1 class="animated" :class='{fadeInRight: animateName1}'>Hi,大家好</h1>
@@ -8,7 +8,7 @@
       <h1 class="animated" :class='{fadeInRight: animateName3}'>下面将会向大家展示一些令人激动的内容</h1>
     </div>
     <div @click="toshow" class="down animated infinite" :class="{bounceIn: downName}" :style="{opacity: downOpacity}">
-      <img src="../assets/images/down3.png" alt="">
+      <img src="../assets/images/down.png" alt="">
     </div>
   </div>
 </template>

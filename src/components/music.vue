@@ -1,8 +1,8 @@
 <template>
     <div id="music" class="music">
-      <img src="../assets/images/mai_music.png" alt="" class="page-img">
-      <div @click="toshow" class="up animated infinite" :class="{bounceIn: upName}" :style="{opacity: upOpacity}"><img src="../assets/images/down3.png" alt=""></div>
-      <div @click="tosee" class="down animated infinite" :class="{bounceIn: downName}" :style="{opacity: downOpacity}"><img src="../assets/images/down3.png" alt=""></div>
+      <img src="../assets/images/music.jpg" alt="" class="page-img">
+      <div @click="toshow" class="up animated infinite" :class="{bounceIn: upName}" :style="{opacity: upOpacity}"><img src="../assets/images/down.png" alt=""></div>
+      <div @click="tosee" class="down animated infinite" :class="{bounceIn: downName}" :style="{opacity: downOpacity}"><img src="../assets/images/down.png" alt=""></div>
       <div>
         
       </div>  

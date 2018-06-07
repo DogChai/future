@@ -1,11 +1,11 @@
 <template>
     <div id="eat" class="eat">
-        <img src="../assets/images/mai_eat.png" alt="" class="page-img">
+        <img src="../assets/images/eat.jpg" alt="" class="page-img">
         <div @click="tosee" class="up animated infinite" :class="{bounceIn: upName}" :style="{opacity: upOpacity}">
-            <img src="../assets/images/down3.png" alt="">
+            <img src="../assets/images/down.png" alt="">
         </div>
         <div @click="toindex" class="down animated infinite" :class="{bounceIn: downName}" :style="{opacity: downOpacity}">
-            <img src="../assets/images/down3.png" alt="">
+            <img src="../assets/images/down.png" alt="">
         </div>
 
         <div class="eat-top">
@@ -19,7 +19,7 @@
             <div class="eat-list">
 
                 <!-- 加载动画 -->
-                <div class="lds-css ng-scope loaded">
+                <div class="lds-css ng-scope load-animate" :style="{opacity: loadOpacity}">
                     <div style="width:100%;height:100%" class="lds-ellipsis">
                         <div>
                             <div></div>
@@ -40,9 +40,13 @@
                 </div>
 
 
+                <!-- 未找到菜肴 -->
+                <div class="no-menu" :style="{display: noMenu}">未找到该菜肴!!!</div>
+
 
                 <!-- 菜肴数量 -->
-                <div v-show='foodShow' class="eat-lists" :style="{opacity: arr.opacity}" :data-index='index' @click='showDetail(index)' v-for='(arr,index) in foodData'>
+                <!-- :style="{opacity: arr.opacity}" -->
+                <div v-show='foodShow' class="eat-lists" :data-index='index' @click='showDetail(index)' v-for='(arr,index) in foodData'>
                     <p class="eat-headertext">{{arr.title}}</p>
                     <img :src="arr.albums[0]" alt="" class="eat-headerimg">
                 </div>
@@ -67,6 +71,8 @@
                         </ul>
                     </div>
                 </div>
+
+
             </div>
         </GeminiScrollbar>
     </div>
@@ -90,11 +96,16 @@
                 downOpacity: 0,
                 upName: false,
                 upOpacity: 0,
-                foodName: '',   //菜肴名称
+                foodName: '',    //菜肴名称
+                saveName: '',    //保存的菜肴名称 
                 foodData: [],
-                foodIndex: 0,   //需要显示的菜肴索引值
+                foodIndex: 0,    //需要显示的菜肴索引值
                 foodShow: true,  //菜肴类别和详情切换
                 totalNum: 0,
+                loadOpacity: 0,   //load opacity显示值
+                loadZindex: -1,   //load z-index值
+                myscrollbar: '',
+                noMenu: 'none'
             };
         },
         methods: {
@@ -110,14 +121,49 @@
                 this.$store.state.clickWhere = '7px';
             },
             showDetail: function (myindex) {
-                console.log(myindex)
-                this.foodShow = false;
-                this.foodIndex = myindex;
+                // console.log(myindex);
+                var timer = null;
+                var that = this;
+                clearTimeout(timer);
+                for (var i = 0; i < document.getElementsByClassName('eat-lists').length; i++) {
+                    document.getElementsByClassName('eat-lists')[i].style.opacity = 0;
+                }
+                that.foodShow = false;
+                that.foodIndex = myindex;
+                document.getElementsByClassName('eat-details-wrap')[0].style.opacity = 0;
+                // this.myscrollbar.update();
+                this.loadOpacity = 1;
+                this.loadZindex = 99;
+                timer = setTimeout(function () {
+                    clearTimeout(timer);
+                    that.loadOpacity = 0;
+                    that.loadZindex = -1;
+                    document.getElementsByClassName('eat-details-wrap')[0].style.opacity = 1;
+                }, 1000);
+
             },
             gotolist: function () {
-                if (!this.foodShow) {
-                    this.foodShow = true;
-                }
+                var timer = null;
+                var that = this;
+                clearTimeout(timer);
+
+                document.getElementsByClassName('eat-details-wrap')[0].style.opacity = 0;
+                // this.myscrollbar.update();
+                this.loadOpacity = 1;
+                this.loadZindex = 99;
+
+                timer = setTimeout(function () {
+                    clearTimeout(timer);
+                    that.loadOpacity = 0;
+                    that.loadZindex = -1;
+                    if (!that.foodShow) {
+                        that.foodShow = true;
+                    }
+                    for (var i = 0; i < document.getElementsByClassName('eat-lists').length; i++) {
+                        document.getElementsByClassName('eat-lists')[i].style.opacity = 1;
+                    }
+                }, 500);
+
             },
             sideColor: function (num) {
                 let liDom = document.getElementsByClassName('sideLi');
@@ -131,44 +177,80 @@
                 liDom[num].children[0].style.left = '-18px';
             },
             getFood: function () {
+
                 var txt = encodeURIComponent(this.foodName);
                 var that = this;
-                this.foodShow = true;
-                jquery.ajax({
-                    url: 'https://apis.juhe.cn/cook/query?key=092d3c9d359567229b2dca2a9b235628&rn=30&pn=0&dtype=jsonp&menu=' + txt,
-                    dataType: 'jsonp',
-                    success: function (data) {
-                        if (data.resultcode != 200) {
-                            console.log('未找到该菜肴')
-                        } else {
-                            console.log(data);
-                            if (data.result.totalNum == that.totalNum) {
-                                return;
-                            } else {
-                                that.foodData = [];
-                                that.totalNum = data.result.totalNum;
-                                let mydata = data.result.data;
-                                let datatimer = null;
-                                let datalength = mydata.length;
-                                let addnum = 0;
-
-                                clearInterval(datatimer);
-
-                                for (let i = 0; i < mydata.length; i++) {
-                                    mydata[i].opacity = '1';
-                                }
-                                datatimer = setInterval(function () {
-                                    if (addnum == datalength) {
-                                        clearInterval(datatimer)
-                                    } else {
-                                        that.$set(that.foodData, addnum, mydata[addnum])
-                                        addnum++;
-                                    }
-                                }, 200);
-                            }
-                        }
+                var timer = null;
+                clearTimeout(timer);
+                timer = setTimeout(function () {
+                    clearTimeout(timer);
+                    if (that.saveName == that.foodName) {
+                        that.loadOpacity = 0;
+                        that.loadZindex = -1;
                     }
-                })
+                    else {
+                        that.foodData = [];
+                        that.noMenu = 'none';
+                        that.loadOpacity = 1;
+                        that.loadZindex = 99;
+                        that.foodShow = true;
+                        jquery.ajax({
+                            url: 'https://apis.juhe.cn/cook/query?key=092d3c9d359567229b2dca2a9b235628&rn=30&pn=0&dtype=jsonp&menu=' + txt,
+                            dataType: 'jsonp',
+                            success: function (data) {
+                                that.saveName = that.foodName;
+
+                                if (data.resultcode != 200) {
+                                    console.log('未找到该菜肴');
+                                    that.loadOpacity = 0;
+                                    that.loadZindex = -1;
+                                    that.noMenu = 'block';
+                                } else {
+                                    that.noMenu = 'none';
+                                    if (data.result.totalNum == that.totalNum) {
+                                        return;
+                                    } else {
+                                        that.totalNum = data.result.totalNum;
+                                        let mydata = data.result.data;
+                                        let datatimer = null;
+                                        let timer2 = null;
+                                        let detailBol = false;
+                                        clearInterval(datatimer);
+                                        clearTimeout(timer2);
+                                        that.foodData = mydata;
+
+                                        timer2 = setInterval(function () {
+                                            if (document.getElementsByClassName('eat-lists')) {
+                                                that.loadOpacity = 0;
+                                                that.loadZindex = -1;
+                                                clearInterval(timer2);
+                                                detailBol = true;
+                                                showLists();
+                                            }
+                                        }, 100)
+
+                                        function showLists() {
+                                            var listsLength = document.getElementsByClassName('eat-lists').length - 1;
+                                            var listsNum = 0;
+                                            
+                                            datatimer = setInterval(function () {
+                                                
+                                                if (listsNum == listsLength + 1) {
+                                                    
+                                                    clearInterval(datatimer)
+                                                } else {
+                                                    document.getElementsByClassName('eat-lists')[listsNum].style.opacity = 1;
+                                                    listsNum++;
+                                                }
+                                            }, 150);
+                                        }
+                                    }
+                                }
+                            }
+                        })
+                    }
+                }, 0)
+
             }
         },
         mounted: function () {
@@ -178,19 +260,22 @@
             this.upOpacity = 1;
             var that = this;
             console.log(this.$store.state.eatData)
-            // var eatData = localStorage.getItem('eatData');
-            // console.log(eatData);
             this.foodName = this.$store.state.eatData.foodName;
             this.foodData = this.$store.state.eatData.foodData;
             this.foodIndex = this.$store.state.eatData.foodIndex;
             this.foodShow = this.$store.state.eatData.foodShow;
             this.totalNum = this.$store.state.eatData.totalNum;
+
+            // this.myscrollbar = new Vue.$geminiScrollbar({
+            //         element: document.getElementsByClassName('my-scroll-bar')[0]
+            // }).create();
+            console.log(this.myscrollbar)
         },
         destroyed: function () {
-            console.log("我已经离开了！");
+            // console.log("我已经离开了！");
             console.log(this);
             var eatData = {
-                foodName:  this.foodName,
+                foodName: this.foodName,
                 foodData: this.foodData,
                 foodIndex: this.foodIndex,
                 foodShow: this.foodShow,
@@ -208,6 +293,16 @@
         height: 100%;
         left: 0;
         top: 0;
+    }
+
+    .no-menu {
+        width: 200px;
+        height: 60px;
+        line-height: 60px;
+        font-size: 20px;
+        margin: 10px auto;
+        text-align: center;
+        color: white;
     }
 
     .my-scroll-bar {
@@ -255,13 +350,22 @@
     .eat-details li {
         width: 80%;
         margin: 10px auto;
-        height: 150px;
+        height: auto;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .eat-details-wrap {
+        transition: all .3s;
     }
 
     .eat-details .left-img {
-        height: 150px;
-        width: 215px;
-        float: left;
+        height: 110%;
+        width: 220px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
     }
 
     .eat-details .left-img img {
@@ -270,16 +374,18 @@
     }
 
     .eat-details .right-text {
-        height: 150px;
+        height: auto;
+        min-height: 150px;
         width: 405px;
         float: left;
         box-sizing: border-box;
-        padding-top: 35px;
-        padding-left: 35px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-left: 15px;
         padding-right: 15px;
         text-align: left;
         background-color: rgba(255, 255, 255, 0.2);
-        margin-left: 10px;
+        margin-left: 230px;
         color: white;
         font-size: 20px;
         text-shadow: 0 0 2px black;
@@ -310,7 +416,7 @@
 
     .eat-list {
         width: 805px;
-        min-height: 10px;
+        min-height: 160px;
         height: auto;
         margin: 0 auto;
         position: relative;
@@ -396,10 +502,10 @@
 
 
     .eat-input {
-        width: 550px;
+        width: 570px;
         height: 38px;
         float: left;
-        margin-left: 52px;
+        margin-left: 10px;
         margin-right: 10px;
         outline: none;
         box-sizing: border-box;
@@ -417,10 +523,11 @@
     }
 
     .eat-btn {
-        width: 80px;
+        width: 90px;
         height: 38px;
         line-height: 20px;
         float: left;
+        margin-left: 40px;
         font-family: 'dogchai' !important;
         cursor: pointer;
         background-color: transparent;
