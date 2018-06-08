@@ -1,6 +1,6 @@
 <template>
   <div id="music" class="music">
-    <img src="../assets/images/lrc.jpg" alt="" class="page-img">
+    <!-- <img src="../assets/images/lrc.jpg" alt="" class="page-img"> -->
     <div @click="tomusic" class="up animated infinite" :class="{bounceIn: upName}" :style="{opacity: upOpacity}">
       <img src="../assets/images/down.png" alt="">
     </div>
@@ -34,16 +34,16 @@
         this.$store.state.clickWhere = '227px';
       },
       sideColor: function (num) {
-                let liDom = document.getElementsByClassName('sideLi');
-                for (var i = 0; i < liDom.length; i++) {
-                    liDom[i].style.color = 'rgba(255,255,255,0.3)'
-                    liDom[i].children[0].style.opacity = '';
-                    liDom[i].children[0].style.left = '';
-                }
-                liDom[num].style.color = 'rgba(0,0,0,0.9)';
-                liDom[num].children[0].style.opacity = '1';
-                liDom[num].children[0].style.left = '-18px';
-            }
+        let liDom = document.getElementsByClassName('sideLi');
+        for (var i = 0; i < liDom.length; i++) {
+          liDom[i].style.color = 'rgba(255,255,255,0.3)'
+          liDom[i].children[0].style.opacity = '';
+          liDom[i].children[0].style.left = '';
+        }
+        liDom[num].style.color = 'rgba(0,0,0,0.9)';
+        liDom[num].children[0].style.opacity = '1';
+        liDom[num].children[0].style.left = '-18px';
+      }
     },
     mounted: function () {
       this.downName = true;
@@ -61,16 +61,16 @@
     height: 100%;
     left: 0;
     top: 0;
-    /* background-color: rgb(153, 241, 70); */
+    background-color: rgb(153, 241, 70);
   }
 
   .down {
     width: 36px;
-  height: 32px;
+    height: 32px;
     position: absolute;
     bottom: 10px;
     left: 50%;
-    margin-left: -25px;
+    margin-left: -18px;
     cursor: pointer;
   }
 
@@ -81,11 +81,11 @@
 
   .up {
     width: 36px;
-  height: 32px;
+    height: 32px;
     position: absolute;
     top: 10px;
     left: 50%;
-    margin-left: -25px;
+    margin-left: -18px;
     cursor: pointer;
   }
 

@@ -1,6 +1,6 @@
 <template>
   <div id="show" class="show">
-    <img src="../assets/images/show.jpg" alt="" class="page-img">
+    <!-- <img src="../assets/images/show.jpg" alt="" class="page-img"> -->
     <div @click="toindex" class="up animated infinite" :class="{bounceIn: upName}" :style="{opacity: upOpacity}">
       <img src="../assets/images/down.png" alt="">
     </div>
@@ -60,26 +60,26 @@
     height: 100%;
     left: 0;
     top: 0;
-    /* background-color: rgb(23, 23, 23); */
+    background-color: rgb(23, 23, 23);
   }
 
   .down {
     width: 36px;
-  height: 32px;
+    height: 32px;
     position: absolute;
     bottom: 10px;
     left: 50%;
-    margin-left: -25px;
+    margin-left: -18px;
     cursor: pointer;
   }
 
   .up {
     width: 36px;
-  height: 32px;
+    height: 32px;
     position: absolute;
     top: 10px;
     left: 50%;
-    margin-left: -25px;
+    margin-left: -18px;
     cursor: pointer;
   }
 

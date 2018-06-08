@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <control class="control"></control>
+    <!-- <control class="control"></control> -->
     <div class="side-right">
       <ul class="side-right-ul">
         <div class="side-choose" :style="{top: this.$store.state.clickWhere}"></div>
@@ -33,9 +33,11 @@
       </ul>
     </div>
     <transition name='slide-fade'>
-      <router-view id="main-page"></router-view>
+      <keep-alive>
+        <router-view id="main-page"></router-view>
+      </keep-alive>
     </transition>
-    <div class="loadlogo">
+    <div class="hover-music" @moverenter='moveMusic'>
         
     </div>
   </div>
@@ -61,6 +63,9 @@
       }
     },
     methods: {
+      moveMusic:function() {
+        
+      },
       moveChoose: function (e) {
         this.saveNum = this.$store.state.clickWhere;
         // this.chooseTop = e.currentTarget.dataset.where + 'px';
@@ -100,7 +105,7 @@
       ])
     },
     mounted: function () {
-      console.log(this.$store.getters.getSideWhere)
+      // console.log(this.$store.getters.getSideWhere)
     }
   }
 </script>
@@ -116,7 +121,7 @@
 <style>
   @font-face {
     font-family: "dogchai";
-    src: url('./assets/fonts/newdog.otf');
+    src: url('./assets/fonts/future.ttf');
   }
 
   .bounceIn {
@@ -145,6 +150,16 @@
     width: 100%;
     bottom: 0;
     height: auto;
+  }
+
+  .hover-music {
+    background-color: rgba(25,25,25,0.3);
+    width: 260px;
+    height: 150px;
+    position: fixed;
+    bottom: 100px;
+    left: 50px;
+    cursor: move;
   }
 
   .page-img {

@@ -1,6 +1,6 @@
 <template>
     <div id="music" class="music">
-      <img src="../assets/images/music.jpg" alt="" class="page-img">
+      <!-- <img src="../assets/images/music.jpg" alt="" class="page-img"> -->
       <div @click="toshow" class="up animated infinite" :class="{bounceIn: upName}" :style="{opacity: upOpacity}"><img src="../assets/images/down.png" alt=""></div>
       <div @click="tosee" class="down animated infinite" :class="{bounceIn: downName}" :style="{opacity: downOpacity}"><img src="../assets/images/down.png" alt=""></div>
       <div>
@@ -60,7 +60,7 @@ export default {
   height: 100%;
   left: 0;
   top: 0;
-  /* background-color: rgb(96, 70, 241); */
+  background-color: rgb(96, 70, 241);
   /* background-color: gray; */
 }
 
@@ -70,7 +70,7 @@ export default {
   position: absolute;
   bottom: 10px;
   left: 50%;
-  margin-left: -25px;
+  margin-left: -18px;
   cursor: pointer;
 }
 
@@ -85,7 +85,7 @@ export default {
   position: absolute;
   top: 10px;
   left: 50%;
-  margin-left: -25px;
+  margin-left: -18px;
   cursor: pointer;
 }
 
