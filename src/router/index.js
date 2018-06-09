@@ -23,11 +23,11 @@ import spectrum from '../components/spectrum'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  mode: 'hash',
   routes: [
     {
       path: '/',
-      redirect: '/index/'
+      redirect: '/index'
     },
     {
       path: '/index',

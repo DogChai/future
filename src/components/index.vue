@@ -249,25 +249,63 @@
         //   $('canvas')[0].height = $(window).height();
         // }
       }
-      if(document.getElementById('indexcanvas')) {
+      if (document.getElementById('indexcanvas')) {
         document.getElementById('app').removeChild(document.getElementById('indexcanvas'));
         canvasAnimate();
       } else {
-        
+
         canvasAnimate();
-      } 
-      window.onresize = function() {
-          // $('canvas')[0].getContext('2d').fillStyle = '#fff';
-          $('canvas')[0].getContext('2d').clearRect(0, 0, $('canvas')[0].width, $('canvas')[0].height);
-          // $('canvas')[0].getContext('2d').fillRect(0, 0, $('canvas')[0].width, $('canvas')[0].height);
-          $('canvas')[0].width = $(window).width();
-          $('canvas')[0].height = $(window).height();
-        }
+      }
+      window.onresize = function () {
+        // $('canvas')[0].getContext('2d').fillStyle = '#fff';
+        $('canvas')[0].getContext('2d').clearRect(0, 0, $('canvas')[0].width, $('canvas')[0].height);
+        // $('canvas')[0].getContext('2d').fillRect(0, 0, $('canvas')[0].width, $('canvas')[0].height);
+        $('canvas')[0].width = $(window).width();
+        $('canvas')[0].height = $(window).height();
+      }
     },
-    destroyed: function() {
-      if(document.getElementById('indexcanvas')) {
+    destroyed: function () {
+      if (document.getElementById('indexcanvas')) {
         document.getElementById('app').removeChild(document.getElementById('indexcanvas'));
-      } 
+      }
+    },
+    activated: function () {
+      var that = this;
+      var animateTimer = null;
+      var animateNum = 0;
+      animateTimer = setInterval(function () {
+        if (animateNum <= 2) {
+          if (animateNum == 0) {
+            that.animateName1 = true;
+          }
+
+          if (animateNum == 1) {
+            that.animateName2 = true;
+          }
+
+          if (animateNum == 2) {
+            that.animateName3 = true;
+          }
+          animateNum++;
+        } else { 
+          clearInterval(animateTimer);
+          that.downName = true;
+          that.downOpacity = 1;
+        }
+      }, 600);
+
+      // if (document.getElementById('indexcanvas')) {
+      //   document.getElementById('app').removeChild(document.getElementById('indexcanvas'));
+      //   canvasAnimate();
+      // } else {
+
+      //   canvasAnimate();
+      // }
+    },
+    deactivated: function () {
+      // if (document.getElementById('indexcanvas')) {
+      //   document.getElementById('app').removeChild(document.getElementById('indexcanvas'));
+      // }
     }
   };
 </script>
@@ -279,7 +317,7 @@
     height: 100%;
     left: 0;
     top: 0;
-    background-color: rgba(32, 98, 240,0.3);
+    background-color: rgba(32, 98, 240, 0.3);
     box-sizing: border-box;
   }
 

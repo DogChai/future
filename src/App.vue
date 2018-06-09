@@ -6,28 +6,23 @@
         <div class="side-choose" :style="{top: this.$store.state.clickWhere}"></div>
         <li class="sideLi" style="color: rgba(0, 0, 0, 0.9);" data-index='0' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi'
           data-path='/index' data-where="7">
-          萌萌哒
-          <!-- <img src="./assets/images/index.png" alt="" style="opacity: 1; left: -25px"> -->
+          柴柴柴
           <i class="fa fa-moon sideIcon"></i>
         </li>
         <li class="sideLi" data-index='1' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/show' data-where="62">
-          新世界
-          <!-- <img src="./assets/images/show.png" alt=""> -->
+          秀秀秀
           <i class="fa fa-sun sideIcon"></i>
         </li>
         <li class="sideLi" data-index='2' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/music' data-where="117">
-          用心听
-          <!-- <img src="./assets/images/music.png" alt=""> -->
+          听听听
           <i class="fa fa-headphones sideIcon"></i>
         </li>
         <li class="sideLi" data-index='3' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/see' data-where="172">
-          用眼看
-          <!-- <img src="./assets/images/eye.png" alt=""> -->
+          看看看
           <i class="fa fa-bullseye sideIcon"></i>
         </li>
         <li class="sideLi" data-index='4' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/eat' data-where="227">
-          用嘴吃
-          <!-- <img src="./assets/images/eat.png" alt=""> -->
+          吃吃吃
           <i class="fa fa-utensils sideIcon"></i>
         </li>
       </ul>
@@ -37,8 +32,44 @@
         <router-view id="main-page"></router-view>
       </keep-alive>
     </transition>
-    <div class="hover-music" @moverenter='moveMusic'>
-        
+    <div class="hover-music" v-on:mousedown.stop='moveMusic' :style="{top: hoverTop, left: hoverLeft}">
+      <div class="hm-top">
+        →<span>纯音乐</span><span>999</span>
+      </div>
+      <div class="hm-wrap">
+        <div class="hm-name">
+          <span>コネクト</span>
+        </div>
+        <div class="hm-time">
+          <span class="hm-long">
+            <span class="hm-circle"></span>
+            <span class="hm-comp"></span>
+          </span>
+          <span class="hm-havetime">00:00/04:29</span>
+        </div>
+        <div class="hm-control">
+          <div class="hm-icon">
+            <span>
+              <i class="fa fa-step-backward"></i>
+            </span>
+            <span>
+              <i class="fa fa-play-circle"></i>
+            </span>
+            <span>
+              <i class="fa fa-step-forward"></i>
+            </span>
+            <span>
+              <i class="fa fa-random"></i>
+            </span>
+          </div>
+          <div class="hm-volume">
+            <span class="hm-vlong">
+              <span class="hm-circle"></span>
+              <span class="hm-comp"></span>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -60,11 +91,42 @@
         ifClick: true,
         clickTop: '7px',
         saveNum: '',
+        hoverTop: '300px',
+        hoverLeft: '500px'
       }
     },
     methods: {
-      moveMusic:function() {
-        
+      //拖动音乐框
+      moveMusic: function (e) {
+        var that = this;
+        var target = document.getElementsByClassName('hover-music')[0];
+        var x = e.clientX - target.offsetLeft;
+        var y = e.clientY - target.offsetTop;
+        var drag = target;
+        document.onmousemove = function (e) {
+          if (drag) {
+            var myapp = document.getElementById('app');
+            var left = e.clientX - x;
+            var top = e.clientY - y;
+            if(left <= 0) {
+              left = 0;
+            }
+            else if(left >= myapp.offsetWidth - drag.offsetWidth) {
+              left = myapp.offsetWidth - drag.offsetWidth;
+            }
+            if(top <= 0) {
+              top = 0;
+            }else if(top >= myapp.offsetHeight - drag.offsetHeight) {
+              top = myapp.offsetHeight - drag.offsetHeight
+            }
+            that.hoverLeft = left + 'px';
+            that.hoverTop = top + 'px';
+          }
+        }
+        document.onmouseup = function () {
+          document.onmousemove = null;
+          document.onmousedown = null;
+        }
       },
       moveChoose: function (e) {
         this.saveNum = this.$store.state.clickWhere;
@@ -125,7 +187,7 @@
   }
 
   .bounceIn {
-    animation-duration: 1.5s!important;
+    animation-duration: 1.5s !important;
   }
 
   #app {
@@ -139,6 +201,7 @@
     right: 0;
     width: 100%;
     height: 100%;
+    user-select: none;
   }
 
   #main-page {
@@ -153,13 +216,133 @@
   }
 
   .hover-music {
-    background-color: rgba(25,25,25,0.3);
+    background-color: rgba(25, 25, 25, 0.3);
     width: 260px;
-    height: 150px;
+    height: 160px;
     position: fixed;
     bottom: 100px;
     left: 50px;
     cursor: move;
+    z-index: 999;
+  }
+
+  .hm-top {
+    width: 100%;
+    height: 36px;
+    line-height: 36px;
+    text-align: left;
+    box-sizing: border-box;
+    padding-left: 10px;
+    border-bottom: 2px solid rgba(25, 25, 25, 0.1);
+    cursor: pointer;
+  }
+
+  .hm-wrap {
+    width: 100%;
+    height: 124px;
+    box-sizing: border-box;
+  }
+
+  .hm-name {
+    width: 100%;
+    height: 38px;
+    line-height: 38px;
+    box-sizing: border-box;
+    border-bottom: 1px solid black;
+  }
+
+  .hm-time {
+    width: 100%;
+    height: 43px;
+    line-height: 43px;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .hm-time .hm-havetime {
+    position: absolute;
+    height: 30px;
+    width: 88px;
+    right: 1px;
+    top: 10px;
+    font-size: 14px;
+    line-height: 30px;
+  }
+
+  .hm-time .hm-long {
+    position: absolute;
+    width: 150px;
+    height: 4px;
+    left: 15px;
+    top: 22px;
+    background-color: rgba(25, 25, 25, 0.3);
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+
+  .hm-time .hm-long .hm-circle {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border-radius: 50%;
+    left: -5px;
+    top: -5px;
+    cursor: pointer;
+  }
+
+  .hm-control {
+    width: 100%;
+    height: 43px;
+    line-height: 43px;
+    box-sizing: border-box;
+  }
+
+  .hm-control .hm-icon {
+    width: 155px;
+    height: 100%;
+    float: left;
+    display: inline-block;
+  }
+
+  .hm-control .hm-icon span {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 20px;
+    margin-top: 5px;
+    margin: 5px 1px;
+  }
+
+  .hm-control .hm-volume {
+    width: 105px;
+    height: 100%;
+    float: left;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .hm-control .hm-volume .hm-vlong {
+    width: 90px;
+    height: 2px;
+    display: block;
+    background-color: rgba(25, 25, 25, 0.3);
+    margin-top: 18px;
+    margin-left: 8px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .hm-volume .hm-vlong .hm-circle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    left: -4px;
+    top: -4px;
+    cursor: pointer;
   }
 
   .page-img {
@@ -296,4 +479,3 @@
     opacity: 0;
   }
 </style>
-
