@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <!-- <control class="control"></control> -->
+    <audio id="audio" src="http://ohx9cuj3d.bkt.clouddn.com/%E5%AE%89%E7%94%B0%E3%83%AC%E3%82%A4%20-%20Brand%20New%20Day.mp3"></audio>
     <div class="side-right">
       <ul class="side-right-ul">
         <div class="side-choose" :style="{top: this.$store.state.clickWhere}"></div>
@@ -34,11 +34,22 @@
     </transition>
     <div class="hover-music" v-on:mousedown.stop='moveMusic' :style="{top: hoverTop, left: hoverLeft}">
       <div class="hm-top">
-        →<span>纯音乐</span><span>999</span>
+        <span class="fa fa-music"></span>
+        <span class="hm-list">
+          纯音乐
+          <ul>
+            <li v-for='(item,index) in musicData'>{{item.name}}</li>
+            <!-- <li>后摇</li>
+            <li>欧美</li> -->
+          </ul>
+        </span>
+        <span class="hm-num">
+          <i class="fa fa-angle-double-right"></i> 999</span>
       </div>
       <div class="hm-wrap">
-        <div class="hm-name">
-          <span>コネクト</span>
+        <div class="hm-name" title="正在播放">
+          <i class="fa fa-play hm-name-icon"></i>
+          <span class="hm-name-text">コネクト - xxxx</span>
         </div>
         <div class="hm-time">
           <span class="hm-long">
@@ -49,16 +60,16 @@
         </div>
         <div class="hm-control">
           <div class="hm-icon">
-            <span>
+            <span title="上一曲">
               <i class="fa fa-step-backward"></i>
             </span>
-            <span>
+            <span @click='playMusic' title="播放/暂停">
               <i class="fa fa-play-circle"></i>
             </span>
-            <span>
+            <span title="下一曲">
               <i class="fa fa-step-forward"></i>
             </span>
-            <span>
+            <span title="切换顺序">
               <i class="fa fa-random"></i>
             </span>
           </div>
@@ -75,6 +86,7 @@
 </template>
 
 <script>
+  import axios from 'axios';
   import { mapGetters, mapState } from 'vuex';
 
   //控制
@@ -92,10 +104,29 @@
         clickTop: '7px',
         saveNum: '',
         hoverTop: '300px',
-        hoverLeft: '500px'
+        hoverLeft: '500px',
+        musicData: [],      //音乐数组
+        playBol: false,     //是否正在播放
       }
     },
     methods: {
+      //播放音乐
+      playMusic: function (e) {
+        var target = document.getElementsByClassName('hm-icon')[0].children[1];
+        //正在播放 则暂停，切换按钮
+        if (this.playBol) {
+          this.playBol = false;
+          target.children[0].className = 'fa fa-play-circle';
+          document.getElementById('audio').pause();
+        }
+        //没有播放 则播放，切换按钮 
+        else {
+          this.playBol = true;
+          target.children[0].className = 'fa fa-pause-circle';
+          document.getElementById('audio').play();
+        }
+
+      },
       //拖动音乐框
       moveMusic: function (e) {
         var that = this;
@@ -108,15 +139,15 @@
             var myapp = document.getElementById('app');
             var left = e.clientX - x;
             var top = e.clientY - y;
-            if(left <= 0) {
+            if (left <= 0) {
               left = 0;
             }
-            else if(left >= myapp.offsetWidth - drag.offsetWidth) {
+            else if (left >= myapp.offsetWidth - drag.offsetWidth) {
               left = myapp.offsetWidth - drag.offsetWidth;
             }
-            if(top <= 0) {
+            if (top <= 0) {
               top = 0;
-            }else if(top >= myapp.offsetHeight - drag.offsetHeight) {
+            } else if (top >= myapp.offsetHeight - drag.offsetHeight) {
               top = myapp.offsetHeight - drag.offsetHeight
             }
             that.hoverLeft = left + 'px';
@@ -167,7 +198,14 @@
       ])
     },
     mounted: function () {
-      // console.log(this.$store.getters.getSideWhere)
+      // console.log(axios);
+      var that = this;
+      axios.get('../static/json/music.json').then((response) => {
+        console.log(response)
+        that.musicData =  response.data;
+      }, (response) => {
+        console.log(response)
+      })
     }
   }
 </script>
@@ -206,7 +244,6 @@
 
   #main-page {
     position: absolute;
-    /* top: 60px; */
     top: 0;
     left: 0;
     right: 0;
@@ -224,6 +261,7 @@
     left: 50px;
     cursor: move;
     z-index: 999;
+    color: white;
   }
 
   .hm-top {
@@ -233,7 +271,76 @@
     text-align: left;
     box-sizing: border-box;
     padding-left: 10px;
-    border-bottom: 2px solid rgba(25, 25, 25, 0.1);
+    /* border-bottom: 2px solid rgba(25, 25, 25, 0.1); */
+    background-color: rgba(25, 25, 25, 0.15);
+    /* cursor: pointer; */
+    position: relative;
+  }
+
+  .hm-top>span {
+    margin-left: 2px;
+  }
+
+  .hm-list {
+    position: absolute;
+    width: 105px;
+    height: 100%;
+    line-height: 36px;
+    left: 32px;
+    top: 0;
+    box-sizing: border-box;
+    padding-left: 19px;
+    cursor: pointer;
+    transition: all .3s ease;
+  }
+
+  .hm-list:hover {
+    background-color: rgba(25, 25, 25, 0.15);
+  }
+
+  .hm-list:hover ul {
+    /* bottom: 36px; */
+    /* z-index: 1; */
+    display: 'block';
+    opacity: 1;
+  }
+
+  .hm-list ul {
+    position: absolute;
+    bottom: 36px;
+    list-style: none;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+    /* padding-left: 19px; */
+    background-color: rgba(25, 25, 25, 0.15);
+    /* z-index: -999; */
+    display: 'none';
+    opacity: 0;
+    transition: all .3s ease;
+  }
+
+  .hm-list ul li {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding-left: 19px;
+    transition: all .3s ease;
+  }
+
+  .hm-list ul li:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .hm-num {
+    position: absolute;
+    width: 50px;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    right: 10px;
+    line-height: 36px;
+    text-align: right;
     cursor: pointer;
   }
 
@@ -248,7 +355,25 @@
     height: 38px;
     line-height: 38px;
     box-sizing: border-box;
-    border-bottom: 1px solid black;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .hm-name-icon {
+    position: absolute;
+    left: 14px;
+    top: 11px;
+  }
+
+  .hm-name-text {
+    position: absolute;
+    left: 40px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    text-align: left;
+    box-sizing: border-box;
+    padding-left: 10px;
   }
 
   .hm-time {
@@ -257,6 +382,8 @@
     line-height: 43px;
     box-sizing: border-box;
     position: relative;
+    /* border-bottom: 2px solid rgba(25, 25, 25, 0.1); */
+    background-color: rgba(25, 25, 25, 0.15);
   }
 
   .hm-time .hm-havetime {
@@ -264,20 +391,22 @@
     height: 30px;
     width: 88px;
     right: 1px;
-    top: 10px;
+    top: 9px;
     font-size: 14px;
     line-height: 30px;
+    cursor: pointer;
   }
 
   .hm-time .hm-long {
     position: absolute;
     width: 150px;
-    height: 4px;
+    height: 3px;
     left: 15px;
     top: 22px;
     background-color: rgba(25, 25, 25, 0.3);
     box-sizing: border-box;
     cursor: pointer;
+    border-radius: 1px;
   }
 
   .hm-time .hm-long .hm-circle {
@@ -286,9 +415,19 @@
     height: 12px;
     background-color: white;
     border-radius: 50%;
-    left: -5px;
+    /* left: -5px; */
+    left: 44px;
     top: -5px;
     cursor: pointer;
+  }
+
+  .hm-time .hm-comp {
+    position: absolute;
+    width: 50px;
+    left: 0;
+    top: 0;
+    background-color: white;
+    height: 3px;
   }
 
   .hm-control {
@@ -296,6 +435,7 @@
     height: 43px;
     line-height: 43px;
     box-sizing: border-box;
+    cursor: pointer;
   }
 
   .hm-control .hm-icon {
@@ -310,9 +450,14 @@
     width: 30px;
     height: 30px;
     line-height: 30px;
-    font-size: 20px;
-    margin-top: 5px;
-    margin: 5px 1px;
+    font-size: 22px;
+    margin: 7px 1px 0 1px;
+    transition: all .3s;
+  }
+
+  .hm-control .hm-icon span:hover {
+    /* color: rgb(240, 240, 240); */
+    color: orange;
   }
 
   .hm-control .hm-volume {
@@ -328,7 +473,7 @@
     height: 2px;
     display: block;
     background-color: rgba(25, 25, 25, 0.3);
-    margin-top: 18px;
+    margin-top: 20px;
     margin-left: 8px;
     position: relative;
     cursor: pointer;
@@ -340,9 +485,19 @@
     height: 10px;
     background-color: white;
     border-radius: 50%;
-    left: -4px;
+    /* left: -4px; */
+    left: 25px;
     top: -4px;
     cursor: pointer;
+  }
+
+  .hm-volume .hm-vlong .hm-comp {
+    position: absolute;
+    width: 30px;
+    left: 0;
+    top: 0;
+    background-color: white;
+    height: 2px;
   }
 
   .page-img {

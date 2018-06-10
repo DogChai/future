@@ -1,3 +1,9 @@
++ 2018.6.10
+    - 优化hovermusic样式
+    - 完善music.json
+
+***
+
 + 2018.6.9
     - 修复build打包路径错误问题
     - 添加hovermusic拖动
