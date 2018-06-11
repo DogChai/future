@@ -35,12 +35,10 @@
     <div class="hover-music" v-on:mousedown.stop='moveMusic' :style="{top: hoverTop, left: hoverLeft}">
       <div class="hm-top">
         <span class="fa fa-music"></span>
-        <span class="hm-list">
+        <span class="hm-list" @click='openList'>
           纯音乐
-          <ul>
+          <ul data-bol='false'>
             <li v-for='(item,index) in musicData'>{{item.name}}</li>
-            <!-- <li>后摇</li>
-            <li>欧美</li> -->
           </ul>
         </span>
         <span class="hm-num">
@@ -103,13 +101,28 @@
         ifClick: true,
         clickTop: '7px',
         saveNum: '',
-        hoverTop: '300px',
-        hoverLeft: '500px',
+        hoverTop: '0px',
+        hoverLeft: '0px',
         musicData: [],      //音乐数组
         playBol: false,     //是否正在播放
       }
     },
     methods: {
+      //显示分类
+      openList: function(e) {
+        var myUl = e.target.children[0];
+        var ulBol = myUl.getAttribute('data-bol');
+        if(ulBol == 'true') {
+          myUl.style.display = 'none';
+          myUl.style.opacity = 0;
+          myUl.setAttribute('data-bol','false');
+        }else {
+          myUl.style.display = 'block';
+          myUl.style.opacity = 1;
+          myUl.setAttribute('data-bol','true');
+        }
+        
+      },
       //播放音乐
       playMusic: function (e) {
         var target = document.getElementsByClassName('hm-icon')[0].children[1];
@@ -221,7 +234,7 @@
 <style>
   @font-face {
     font-family: "dogchai";
-    src: url('./assets/fonts/future.ttf');
+    src: url('http://p6bweflo3.bkt.clouddn.com/future.ttf');
   }
 
   .bounceIn {
@@ -298,12 +311,10 @@
     background-color: rgba(25, 25, 25, 0.15);
   }
 
-  .hm-list:hover ul {
-    /* bottom: 36px; */
-    /* z-index: 1; */
+  /* .hm-list:hover ul {
     display: 'block';
     opacity: 1;
-  }
+  } */
 
   .hm-list ul {
     position: absolute;

@@ -264,50 +264,10 @@
             this.upName = true;
             this.upOpacity = 1;
             var that = this;
-            // console.log(this.$store.state.eatData)
-            // this.downName = this.$store.state.eatData.downName,
-            // this.downOpacity = this.$store.state.eatData.downOpacity,
-            // this.upName = this.$store.state.eatData.upName,
-            // this.upOpacity = this.$store.state.eatData.upOpacity,
-            // this.foodName = this.$store.state.eatData.foodName,    
-            // this.saveName = this.$store.state.eatData.saveName,     
-            // this.foodData = this.$store.state.eatData.foodData,
-            // this.foodIndex = this.$store.state.eatData.foodIndex,    
-            // this.foodShow = this.$store.state.eatData.foodShow,  
-            // this.totalNum = this.$store.state.eatData.totalNum,
-            // this.loadOpacity = this.$store.state.eatData.loadOpacity,   
-            // this.loadZindex = this.$store.state.eatData.loadZindex,   
-            // this.noMenu = this.$store.state.eatData.noMenu,
-            // this.backDisplay = this.$store.state.eatData.backDisplay,
-            // this.backOpacity = this.$store.state.eatData.backOpacity
-            // if(!this.foodShow) {
-            //     for (var i = 0; i < document.getElementsByClassName('eat-lists').length; i++) {
-            //         document.getElementsByClassName('eat-lists')[i].style.opacity = 1;
-            //     }
-            // }
+
         },
         destroyed: function () {
-            // console.log("我已经离开了！");
-            // console.log(this);
-            // var eatData = {
-            //     downName: this.downName,
-            //     downOpacity: this.downOpacity,
-            //     upName: this.upName,
-            //     upOpacity: this.upOpacity,
-            //     foodName: this.foodName,    
-            //     saveName: this.saveName,     
-            //     foodData: this.foodData,
-            //     foodIndex: this.foodIndex,    
-            //     foodShow: this.foodShow,  
-            //     totalNum: this.totalNum,
-            //     loadOpacity: this.loadOpacity,   
-            //     loadZindex: this.loadZindex,   
-            //     noMenu: this.noMenu,
-            //     backDisplay: this.backDisplay,
-            //     backOpacity: this.backOpacity
 
-            // }
-            // this.$store.state.eatData = eatData;
         },
     };
 </script>
