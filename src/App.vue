@@ -520,7 +520,7 @@
     right: 0;
     bottom: 0;
     /* z-index: 99; */
-    filter: blur(2px);
+    filter: blur(0.1px);
   }
 
   .control {
@@ -578,7 +578,7 @@
     list-style: none;
     text-align: center;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.3);
     transition: all .5s linear;
     font-size: 18px;
     margin: 0px auto;
