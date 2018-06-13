@@ -216,6 +216,7 @@
       axios.get('../static/json/music.json').then((response) => {
         console.log(response)
         that.musicData =  response.data;
+        that.$store.state.musicData = response.data;
       }, (response) => {
         console.log(response)
       })
