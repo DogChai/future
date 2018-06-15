@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <audio id="audio" src="http://ohx9cuj3d.bkt.clouddn.com/%E5%AE%89%E7%94%B0%E3%83%AC%E3%82%A4%20-%20Brand%20New%20Day.mp3"></audio>
+    <audio id="audio" :volume='volumeRate' :currentTime='musicRate' src="http://ohx9cuj3d.bkt.clouddn.com/%E5%AE%89%E7%94%B0%E3%83%AC%E3%82%A4%20-%20Brand%20New%20Day.mp3"></audio>
     <div class="side-right">
       <ul class="side-right-ul">
         <div class="side-choose" :style="{top: this.$store.state.clickWhere}"></div>
@@ -50,10 +50,12 @@
           <span class="hm-name-text">コネクト - xxxx</span>
         </div>
         <div class="hm-time">
-          <span class="hm-long">
-            <span class="hm-circle"></span>
-            <span class="hm-comp"></span>
-          </span>
+          <div class="hm-musicLeft" v-on:mousedown.stop='stopMove'>
+            <span class="hm-long" id="hm-mcontrol">
+              <span class="hm-circle" id="hm-mbar" v-on:mousedown.stop='changeRate' :style='{left: musicRateBar + "px"}'></span>
+              <span class="hm-comp" id="hm-mcomp" :style='{width: musicRateComp + "px"}'></span>
+            </span>
+          </div>
           <span class="hm-havetime">00:00/04:29</span>
         </div>
         <div class="hm-control">
@@ -71,10 +73,10 @@
               <i class="fa fa-random"></i>
             </span>
           </div>
-          <div class="hm-volume">
-            <span class="hm-vlong">
-              <span class="hm-circle"></span>
-              <span class="hm-comp"></span>
+          <div class="hm-volume" v-on:mousedown.stop='stopMove'>
+            <span class="hm-vlong" id="hm-vcontrol">
+              <span class="hm-circle" id="hm-vbar" v-on:mousedown.stop='changeVolume' :style='{left: volumeRateComp + "px"}'></span>
+              <span class="hm-comp" id="hm-vcomp" :style='{width: volumeRateComp + "px"}'></span>
             </span>
           </div>
         </div>
@@ -101,27 +103,37 @@
         ifClick: true,
         clickTop: '7px',
         saveNum: '',
-        hoverTop: '0px',
-        hoverLeft: '0px',
+        hoverTop: '200px',
+        hoverLeft: '600px',
         musicData: [],      //音乐数组
         playBol: false,     //是否正在播放
+        musicRate: 0,       //音乐进度
+        musicRateBar: 0,    //音乐拖动点显示
+        musicRateComp: 0,    //音乐进度条显示
+        volumeRate: 0,      //音乐音量
+        volumeRateBar: 0,    //音乐音量拖动点显示
+        volumeRateComp: 0    //音乐音量进度显示
       }
     },
     methods: {
+      //阻止拖动，优化体验
+      stopMove: function () {
+        //yes
+      },
       //显示分类
-      openList: function(e) {
+      openList: function (e) {
         var myUl = e.target.children[0];
         var ulBol = myUl.getAttribute('data-bol');
-        if(ulBol == 'true') {
+        if (ulBol == 'true') {
           myUl.style.display = 'none';
           myUl.style.opacity = 0;
-          myUl.setAttribute('data-bol','false');
-        }else {
+          myUl.setAttribute('data-bol', 'false');
+        } else {
           myUl.style.display = 'block';
           myUl.style.opacity = 1;
-          myUl.setAttribute('data-bol','true');
+          myUl.setAttribute('data-bol', 'true');
         }
-        
+
       },
       //播放音乐
       playMusic: function (e) {
@@ -169,15 +181,96 @@
         }
         document.onmouseup = function () {
           document.onmousemove = null;
+          
           document.onmousedown = null;
         }
       },
       moveChoose: function (e) {
         this.saveNum = this.$store.state.clickWhere;
         // this.chooseTop = e.currentTarget.dataset.where + 'px';
-
         this.$store.state.clickWhere = e.currentTarget.dataset.where + 'px';
       },
+      //调整歌曲进度
+      changeRate: function (e) {
+        var that = this;
+        var audio = document.getElementById('audio');
+        var hmControl = document.getElementById('hm-mcontrol');
+        var hmBar = document.getElementById('hm-mbar');
+        var hmComp = document.getElementById('hm-mcomp');
+        var barLeft = 0;
+        var leftVal = e.clientX - hmBar.offsetLeft;
+        console.log(audio.duration)
+        document.onmousemove = function (e) {
+          barLeft = e.clientX - leftVal;
+          var compWidth;
+          if (barLeft <= -5) {
+            barLeft = -5;
+          }
+
+          if (barLeft >= 140) {
+            barLeft = 140;
+          }
+          compWidth = barLeft;
+          if (compWidth <= 0) {
+            compWidth = 0;
+          }
+          that.musicRateBar = barLeft;
+          that.musicRateComp = compWidth;
+          that.musicRate = (compWidth / 140).toFixed(2);
+          console.log(that.musicRate)
+        }
+        document.onmouseup = function () {
+          document.onmousemove = null;
+          document.onmousedown = null;
+        }
+      },
+      //调整音量
+      changeVolume: function (e) {
+        var that = this;
+        var audio = document.getElementById('audio');
+        var hmControl = document.getElementById('hm-vcontrol');
+        var hmBar = document.getElementById('hm-vbar');
+        var hmComp = document.getElementById('hm-vcomp');
+        var barLeft = 0;
+        var leftVal = e.clientX - hmBar.offsetLeft;
+        console.log()
+        document.onmousemove = function (e) {
+          barLeft = e.clientX - leftVal;
+          var compWidth;
+          if (barLeft <= -5) {
+            barLeft = -5;
+          }
+
+          if (barLeft >= 80) {
+            barLeft = 80;
+          }
+          compWidth = barLeft;
+          if (compWidth <= 0) {
+            compWidth = 0;
+          }
+          that.volumeRateBar = barLeft;
+          that.volumeRateComp = compWidth;
+          that.volumeRate = (compWidth / 80).toFixed(2);
+          console.log(that.volumeRate)
+        }
+        document.onmouseup = function () {
+          document.onmousemove = null;
+          document.onmousedown = null;
+        }
+      },
+      //上一曲
+      prevMusic: function () {
+
+      },
+      //下一曲
+      nextMusic: function () {
+
+      },
+      //切换播放顺序
+      changeTurn: function () {
+
+      },
+
       leaveLi: function (e) {
         if (this.ifClick) {
           // this.clickTop = this.$store.state.sideWhere;
@@ -215,7 +308,7 @@
       var that = this;
       axios.get('../static/json/music.json').then((response) => {
         console.log(response)
-        that.musicData =  response.data;
+        that.musicData = response.data;
         that.$store.state.musicData = response.data;
       }, (response) => {
         console.log(response)
@@ -388,6 +481,11 @@
     padding-left: 10px;
   }
 
+  .hm-musicLeft {
+    width: 170px;
+    height: 100%;
+  }
+
   .hm-time {
     width: 100%;
     height: 43px;
@@ -413,7 +511,7 @@
     position: absolute;
     width: 150px;
     height: 3px;
-    left: 15px;
+    left: 17px;
     top: 22px;
     background-color: rgba(25, 25, 25, 0.3);
     box-sizing: border-box;

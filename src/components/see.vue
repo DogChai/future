@@ -61,7 +61,7 @@
     height: 100%;
     left: 0;
     top: 0;
-    background-color: rgb(153, 241, 70);
+    background-color: rgb(54, 223, 180);
   }
 
   .down {
