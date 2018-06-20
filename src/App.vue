@@ -103,8 +103,8 @@
         ifClick: true,
         clickTop: '7px',
         saveNum: '',
-        hoverTop: '200px',
-        hoverLeft: '600px',
+        hoverTop: '0px',
+        hoverLeft: '0px',
         musicData: [],      //音乐数组
         playBol: false,     //是否正在播放
         musicRate: 0,       //音乐进度
