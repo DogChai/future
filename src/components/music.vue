@@ -40,7 +40,7 @@
         <GeminiScrollbar>
           <div class="music-sList" v-for='(item,index) in musicIndexDataArr' :data-id='item.id'>
 
-            <span>
+            <span @click='playListMusic' :data-index='index' data-play='false'>
               <i class="fa fa-play-circle"></i>
             </span>
             <span>
@@ -49,7 +49,7 @@
             <span>{{item.name}}</span>
             <span>{{item.singer}}</span>
             <span>{{musicBelongData[item.belong]}}</span>
-            <span>未知</span>
+            <span>{{item.time}}</span>
             <audio src="../../static/musicData/奏有 - かたわれ時.mp3" :id="item.id"></audio>
           </div>
         </GeminiScrollbar>
@@ -93,6 +93,31 @@
         this.sideColor(1)
         this.$router.push({ path: "/show" });
         this.$store.state.clickWhere = '62px';
+      },
+      // 点击列表播放音乐
+      /*
+        更改图标
+        更改audio标签的src
+        更改play状态，需要把app.vue中的playBol变量变更为vuex全局变量
+        更改hovermusic的歌曲名称，专辑，播放状态，音乐进度，音量，数量
+      */
+      playListMusic: function(e) {
+        var sList = document.getElementsByClassName('music-sList');
+        var sPlay = e.currentTarget.dataset.play;
+        if(sPlay == 'false') {
+          // console.log(1)
+          for(var i=0; i<sList.length; i++) {
+            sList[i].children[0].children[0].className = 'fa fa-play-circle';
+            sList[i].children[0].setAttribute('data-play','false');
+          }
+          sList[e.currentTarget.dataset.index].children[0].children[0].className = 'fa fa-pause-circle';
+          sList[e.currentTarget.dataset.index].children[0].setAttribute('data-play','true');
+        }else {
+          //null;
+          sList[e.currentTarget.dataset.index].children[0].children[0].className = 'fa fa-play-circle';
+          sList[e.currentTarget.dataset.index].children[0].setAttribute('data-play','false');
+        }
+
       },
       chooseList: function (e) {
         console.log(e.currentTarget.dataset.index)
@@ -189,7 +214,7 @@
       this.upName = true;
       this.upOpacity = 1;
       axios.get('../static/json/music.json').then((response) => {
-        console.log(response.data.length)
+        // console.log(response.data.length)
         that.musicData = response.data;
         that.$store.state.musicData = response.data;
         that.musicData = response.data;
@@ -245,6 +270,7 @@
     box-sizing: border-box;
     /* background-color: aquamarine; */
     background-color: rgba(25, 25, 25, 0.1);
+    color: white;
   }
 
   .music-sWrap {
@@ -264,7 +290,8 @@
     line-height: 50px;
     /* border-bottom: 2px solid rgba(245,245,245,0.1); */
     background-color: rgba(25,25,25,0.1);
-    margin-bottom: 2px;
+    /* margin-bottom: 2px; */
+    color: white;
   }
 
   .music-sList span {
@@ -402,19 +429,19 @@
   }
 
   .music-smList:hover {
-    opacity: 1;
+    opacity: 1!important;
   }
 
   .music-list:hover .music-text p:nth-of-type(1) {
-    color: rgba(245, 245, 245, 1);
+    color: rgba(245, 245, 245, 1)!important;
   }
 
   .music-list:hover .music-text p:nth-of-type(2) {
-    color: rgba(245, 245, 245, 1);
+    color: rgba(245, 245, 245, 1)!important;
   }
 
   .music-list:hover .music-choose {
-    color: rgba(245, 245, 245, 1);
+    color: rgba(245, 245, 245, 1)!important;
   }
 
 

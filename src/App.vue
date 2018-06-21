@@ -36,13 +36,13 @@
       <div class="hm-top">
         <span class="fa fa-music"></span>
         <span class="hm-list" @click='openList'>
-          纯音乐
+          <!-- {{musicData[0].name}} -->
           <ul data-bol='false'>
             <li v-for='(item,index) in musicData'>{{item.name}}</li>
           </ul>
         </span>
         <span class="hm-num">
-          <i class="fa fa-angle-double-right"></i> 999</span>
+          <i class="fa fa-angle-double-right"></i> 3</span>
       </div>
       <div class="hm-wrap">
         <div class="hm-name" title="正在播放">
@@ -390,15 +390,19 @@
 
   .hm-list {
     position: absolute;
-    width: 105px;
+    /* width: 105px; */
     height: 100%;
     line-height: 36px;
     left: 32px;
+    right: 50px;
     top: 0;
     box-sizing: border-box;
-    padding-left: 19px;
+    padding-left: 16px;
     cursor: pointer;
     transition: all .3s ease;
+    /* overflow: hidden; */
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .hm-list:hover {
@@ -417,20 +421,26 @@
     left: 0;
     right: 0;
     box-sizing: border-box;
-    /* padding-left: 19px; */
+    /* padding-left: 16px; */
     background-color: rgba(25, 25, 25, 0.15);
     /* z-index: -999; */
     display: 'none';
     opacity: 0;
     transition: all .3s ease;
+    font-size: 16px;
+    /* text-align: center; */
   }
 
   .hm-list ul li {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    padding-left: 19px;
+    padding-left: 16px;
     transition: all .3s ease;
+  }
+
+  .hm-list ul li:nth-of-type(odd) {
+    background-color: rgba(25, 25, 25, 0.1);
   }
 
   .hm-list ul li:hover {
@@ -511,7 +521,7 @@
     position: absolute;
     width: 150px;
     height: 3px;
-    left: 17px;
+    left: 13px;
     top: 22px;
     background-color: rgba(25, 25, 25, 0.3);
     box-sizing: border-box;
