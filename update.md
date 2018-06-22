@@ -1,3 +1,8 @@
++ 2018.6.22
+    - 同步一部分hovermusic与music.vue状态
+
+***
+
 + 2018.6.21
     - 需要完善hovermusic上下曲，播放暂停，切换顺序功能
     - 需要hovermusic和music.vue相互同步

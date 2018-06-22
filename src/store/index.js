@@ -12,10 +12,15 @@ const state = {
     // 公共音乐变量
     gMusicValue: {
         // 播放状态
+        playBol: false,
+        // 名称
+        name: '暂无歌曲',
+        // 时间
+        time: '00:00',
         // 位置index
         // 数量
-        // 名称
-        // 时间
+        
+        
     }
 }
 

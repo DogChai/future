@@ -47,7 +47,7 @@
       <div class="hm-wrap">
         <div class="hm-name" title="正在播放">
           <i class="fa fa-play hm-name-icon"></i>
-          <span class="hm-name-text">コネクト - xxxx</span>
+          <span class="hm-name-text">{{$store.state.gMusicValue.name}}</span>
         </div>
         <div class="hm-time">
           <div class="hm-musicLeft" v-on:mousedown.stop='stopMove'>
@@ -56,7 +56,7 @@
               <span class="hm-comp" id="hm-mcomp" :style='{width: musicRateComp + "px"}'></span>
             </span>
           </div>
-          <span class="hm-havetime">00:00/04:29</span>
+          <span class="hm-havetime">00:00/<span>{{$store.state.gMusicValue.time}}</span> </span>
         </div>
         <div class="hm-control">
           <div class="hm-icon">
@@ -111,8 +111,8 @@
         musicRateBar: 0,    //音乐拖动点显示
         musicRateComp: 0,    //音乐进度条显示
         volumeRate: 0,      //音乐音量
-        volumeRateBar: 0,    //音乐音量拖动点显示
-        volumeRateComp: 0    //音乐音量进度显示
+        volumeRateBar: 80,    //音乐音量拖动点显示
+        volumeRateComp: 80    //音乐音量进度显示
       }
     },
     methods: {
@@ -251,7 +251,8 @@
           that.volumeRateBar = barLeft;
           that.volumeRateComp = compWidth;
           that.volumeRate = (compWidth / 80).toFixed(2);
-          console.log(that.volumeRate)
+          console.log(that.volumeRate);
+          document.getElementById('audio').volume = that.volumeRate;
         }
         document.onmouseup = function () {
           document.onmousemove = null;
@@ -312,6 +313,10 @@
         that.$store.state.musicData = response.data;
       }, (response) => {
         console.log(response)
+      }) 
+
+      document.getElementById('audio').addEventListener('timeupdate',function() {
+        console.log(this.currentTime)
       })
     }
   }
@@ -394,7 +399,7 @@
     height: 100%;
     line-height: 36px;
     left: 32px;
-    right: 50px;
+    right: 100px;
     top: 0;
     box-sizing: border-box;
     padding-left: 16px;
@@ -613,7 +618,7 @@
 
   .hm-volume .hm-vlong .hm-comp {
     position: absolute;
-    width: 30px;
+    width: 80px;
     left: 0;
     top: 0;
     background-color: white;

@@ -40,7 +40,7 @@
         <GeminiScrollbar>
           <div class="music-sList" v-for='(item,index) in musicIndexDataArr' :data-id='item.id'>
 
-            <span @click='playListMusic' :data-index='index' data-play='false'>
+            <span @click='playListMusic' :data-index='index' data-play='false' :data-url='item.url' :data-name='item.name'>
               <i class="fa fa-play-circle"></i>
             </span>
             <span>
@@ -102,8 +102,11 @@
         更改hovermusic的歌曲名称，专辑，播放状态，音乐进度，音量，数量
       */
       playListMusic: function(e) {
+        var that = this;
         var sList = document.getElementsByClassName('music-sList');
         var sPlay = e.currentTarget.dataset.play;
+        var sUrl = e.currentTarget.dataset.url;
+        var sName = e.currentTarget.dataset.name;
         if(sPlay == 'false') {
           // console.log(1)
           for(var i=0; i<sList.length; i++) {
@@ -112,10 +115,41 @@
           }
           sList[e.currentTarget.dataset.index].children[0].children[0].className = 'fa fa-pause-circle';
           sList[e.currentTarget.dataset.index].children[0].setAttribute('data-play','true');
-        }else {
+
+          // 更改auido的url值，并且播放
+          document.getElementById('audio').src = sUrl;
+          document.getElementById('audio').play();
+          that.$store.state.gMusicValue.playBol = true;
+
+          
+          document.getElementById('audio').addEventListener('canplay',function() {
+            console.log(this.duration);
+            var arr = (this.duration / 60 ).toString().split('.');
+            var minute = Number(arr[0]);
+            if(minute <= 9) {
+              minute = '0'+minute;
+            }
+            var second = Number(parseInt(this.duration % 60));
+            if(second <= 9) {
+              second = '0'+second;
+            }
+            console.log(minute +':'+second);
+            that.$store.state.gMusicValue.time = minute +':'+second;
+            that.$store.state.gMusicValue.name = sName;
+            
+            document.getElementsByClassName('hm-icon')[0].children[1].children[0].className = 'fa fa-pause-circle';
+            
+          })
+        }
+        else {
           //null;
           sList[e.currentTarget.dataset.index].children[0].children[0].className = 'fa fa-play-circle';
           sList[e.currentTarget.dataset.index].children[0].setAttribute('data-play','false');
+          
+          //暂停播放
+          document.getElementById('audio').pause();
+          that.$store.state.gMusicValue.playBol = false;
+          document.getElementsByClassName('hm-icon')[0].children[1].children[0].className = 'fa fa-play-circle';
         }
 
       },
@@ -137,7 +171,6 @@
         this.musicIndexDataArr = this.musicData[this.musicIndex].arr;
         
         
-
       },
       toLeft: function (e) {
         console.log(e);
