@@ -1,3 +1,8 @@
++ 2018.6.25
+    - 没有future的future又会有什么意思。
+
+***
+
 + 2018.6.22
     - 同步一部分hovermusic与music.vue状态
 
