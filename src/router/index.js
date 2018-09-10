@@ -32,26 +32,31 @@ export default new Router({
     {
       path: '/index',
       name: 'index',
+      meta: { index: 0 },
       component: index
     },
     {
       path: '/show',
       name: 'show',
+      meta: { index: 1 },
       component: show
     },
     {
       path: '/music',
       name: 'music',
+      meta: { index: 2 },
       component: music
     },
     {
       path: '/eat',
       name: 'eat',
+      meta: { index: 3 },
       component: eat
     },
     {
       path: '/see',
       name: 'see',
+      meta: { index: 4 },
       component: see
     },
     {

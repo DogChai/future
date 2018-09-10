@@ -27,7 +27,7 @@
         </li>
       </ul>
     </div>
-    <transition name='slide-fade'>
+    <transition :name='transitionName'>
       <keep-alive>
         <router-view id="main-page"></router-view>
       </keep-alive>
@@ -99,7 +99,15 @@
     },
     data() {
       return {
-        // chooseTop: '5px',
+        transitionName: '',
+        pageNum: 0,
+        pageArr: [
+        "/index",
+        "/show",
+        "/music",
+        "/see",
+        "/eat"
+        ],
         ifClick: true,
         clickTop: '7px',
         saveNum: '',
@@ -317,8 +325,69 @@
 
       document.getElementById('audio').addEventListener('timeupdate',function() {
         console.log(this.currentTime)
-      })
+      });
+
+
+      function throttle(fn, gapTime) {
+        if (gapTime == null || gapTime == undefined) {
+          gapTime = 1500
+        }
+
+        let _lastTime = null
+
+        // 返回新的函数
+        return function () {
+          let _nowTime = + new Date()
+          if (_nowTime - _lastTime > gapTime || !_lastTime) {
+            fn.apply(this, arguments)   //将this和参数传给原函数
+            _lastTime = _nowTime
+          }
+        }
+      }
+
+      // window.onmousewheel = throttle(function(e) {
+        
+      //   if (e.deltaY > 0) {
+      //     that.pageNum++;
+      //     console.log(that.pageNum);
+      //     if (that.pageNum > 5) {
+      //       that.pageNum = 0;
+      //     }
+
+          
+      //     //获得数组第一个元素并删除
+      //     var first = that.pageArr.shift();
+
+      //     //把第一位添加到最后一位
+      //     that.pageArr.push(first);
+      //     that.$router.push({path: that.pageArr[0]})
+      //   } 
+      //   else {
+      //     if (that.pageNum != 0) {
+      //       that.pageNum--;
+      //       console.log(that.pageNum);
+      //       var end = that.pageArr.pop();
+      //       that.pageArr.unshift(end);
+      //       that.$router.push({path: that.pageArr[0]});
+      //     }
+      //   }
+      //   // console.log(that.pageNum)
+      // },1000);
+
+
+
+    },
+    watch: {
+      $route(to, from) {
+        // console.log(to,from)
+        if(to.meta.index > from.meta.index) {
+          this.transitionName = 'slide-top';
+        }else {
+          this.transitionName = 'slide-bottom';
+        }
+      }
     }
+
   }
 </script>
 
@@ -758,4 +827,54 @@
     transform: translateX(10px);
     opacity: 0;
   }
+
+  .slide-bottom-enter-active,
+  .slide-bottom-leave-active,
+  .slide-top-enter-active,
+  .slide-top-leave-active {
+    will-change: transform;
+    transition: all .4s ease-in; 
+    position: absolute;
+  }
+  .slide-bottom-enter {
+    opacity: 0;
+    transform: translate3d(0,-100%, 0);
+  }
+  .slide-bottom-leave-active {
+    opacity: 0;
+    transform: translate3d(0,100%, 0);
+  }
+  .slide-top-enter {
+    opacity: 0;
+    transform: translate3d(0,100%, 0);
+  }
+  .slide-top-leave-active {
+    opacity: 0;
+    transform: translate3d(0,-100%,  0);
+  }
+
+
+
+
+  /* 动画 */
+  @keyframes bot_to_mid {
+      0% {
+          transform: translate3d(0, 100%, 0)
+      }
+      to {
+          transform: translateZ(0)
+      }
+  }
+
+
+  @keyframes mid_to_top {
+      0% {
+          transform: translateZ(0)
+      }
+      to {
+          transform: translate3d(0, -100%, 0)
+      }
+  }
+
+
 </style>

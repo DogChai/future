@@ -3,7 +3,7 @@
     <!-- <img src="../assets/images/index.jpg" alt="" class="page-img"> -->
     <div class="page-blur"></div>
     <div class="index-wrap">
-      <h1 class="animated" :class='{bounceIn: animateName1}'>遇见 · 未来</h1>
+      <h1 class="animated" :class='{bounceIn: animateName1}'>仰望 · 星空</h1>
       <!-- <h1 class="animated" :class='{fadeInLeft: animateName2}'>我是 树影下的月光</h1> -->
       <!-- <h1 class="animated" :class='{fadeInRight: animateName3}'>下面将会向大家展示一些令人激动的内容</h1> -->
     </div>
