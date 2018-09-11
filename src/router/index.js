@@ -48,16 +48,16 @@ export default new Router({
       component: music
     },
     {
-      path: '/eat',
-      name: 'eat',
-      meta: { index: 3 },
-      component: eat
-    },
-    {
       path: '/see',
       name: 'see',
-      meta: { index: 4 },
+      meta: { index: 3 },
       component: see
+    },
+    {
+      path: '/eat',
+      name: 'eat',
+      meta: { index: 4 },
+      component: eat
     },
     {
       path: '/spectrum',

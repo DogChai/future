@@ -6,23 +6,23 @@
         <div class="side-choose" :style="{top: this.$store.state.clickWhere}"></div>
         <li class="sideLi" style="color: rgba(0, 0, 0, 0.9);" data-index='0' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi'
           data-path='/index' data-where="7">
-          柴柴柴
+          主页
           <i class="fa fa-moon sideIcon"></i>
         </li>
         <li class="sideLi" data-index='1' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/show' data-where="62">
-          秀秀秀
+          案例
           <i class="fa fa-sun sideIcon"></i>
         </li>
         <li class="sideLi" data-index='2' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/music' data-where="117">
-          听听听
+          音乐
           <i class="fa fa-headphones sideIcon"></i>
         </li>
         <li class="sideLi" data-index='3' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/see' data-where="172">
-          看看看
+          歌词
           <i class="fa fa-bullseye sideIcon"></i>
         </li>
         <li class="sideLi" data-index='4' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/eat' data-where="227">
-          吃吃吃
+          菜谱
           <i class="fa fa-utensils sideIcon"></i>
         </li>
       </ul>
@@ -102,11 +102,11 @@
         transitionName: '',
         pageNum: 0,
         pageArr: [
-        "/index",
-        "/show",
-        "/music",
-        "/see",
-        "/eat"
+          "/index",
+          "/show",
+          "/music",
+          "/see",
+          "/eat"
         ],
         ifClick: true,
         clickTop: '7px',
@@ -298,13 +298,15 @@
         }
         let liDom = document.getElementsByClassName('sideLi');
         for (var i = 0; i < liDom.length; i++) {
-          liDom[i].style.color = 'rgba(255,255,255,0.3)'
+          liDom[i].style.color = 'rgba(255,255,255,0.9)'
           liDom[i].children[0].style.opacity = '';
           liDom[i].children[0].style.left = '';
         }
         liDom[e.currentTarget.dataset.index].style.color = 'rgba(0,0,0,0.9)'
         liDom[e.currentTarget.dataset.index].children[0].style.opacity = '1'
-        liDom[e.currentTarget.dataset.index].children[0].style.left = '-18px'
+        liDom[e.currentTarget.dataset.index].children[0].style.left = '-18px';
+
+        localStorage.setItem('localData',[e.currentTarget.dataset.where,e.currentTarget.dataset.index]);
       }
     },
     computed: {
@@ -345,36 +347,60 @@
         }
       }
 
-      // window.onmousewheel = throttle(function(e) {
-        
-      //   if (e.deltaY > 0) {
-      //     that.pageNum++;
-      //     console.log(that.pageNum);
-      //     if (that.pageNum > 5) {
-      //       that.pageNum = 0;
-      //     }
+      var pageDown = 0;
+      var whereArr = [7,62,117,172,227]
+      window.onmousewheel = throttle(function(e) {
+
+        if (e.deltaY > 0) {
+          that.pageNum++;
+          
+          if (that.pageNum >= 5) {
+            that.pageNum = 0;
+          }
+          console.log(that.pageNum);
 
           
-      //     //获得数组第一个元素并删除
-      //     var first = that.pageArr.shift();
+          //获得数组第一个元素并删除
+          var first = that.pageArr.shift();
 
-      //     //把第一位添加到最后一位
-      //     that.pageArr.push(first);
-      //     that.$router.push({path: that.pageArr[0]})
-      //   } 
-      //   else {
-      //     if (that.pageNum != 0) {
-      //       that.pageNum--;
-      //       console.log(that.pageNum);
-      //       var end = that.pageArr.pop();
-      //       that.pageArr.unshift(end);
-      //       that.$router.push({path: that.pageArr[0]});
-      //     }
-      //   }
-      //   // console.log(that.pageNum)
-      // },1000);
+          //把第一位添加到最后一位
+          that.pageArr.push(first);
+          console.log(that.pageArr)
+          that.$router.push({path: that.pageArr[0]})
+        } 
+        else {
+          if (that.pageNum != 0) {
+            that.pageNum--;
+            console.log(that.pageNum);
+            var end = that.pageArr.pop();
+            that.pageArr.unshift(end);
+            that.$router.push({path: that.pageArr[0]});
+          }
+        }
+
+        autoClick(that,whereArr[that.pageNum],that.pageNum)
+      },600);
 
 
+      function autoClick(t,val1,index) {
+        // console.log(val1,val2);
+        t.saveNum = val1 + 'px';
+        t.$store.state.clickWhere = t.saveNum;
+        // this.ifClick = true;
+        let liDom = document.getElementsByClassName('sideLi');
+        for (var i = 0; i < liDom.length; i++) {
+          liDom[i].style.color = 'rgba(255,255,255,0.9)'
+          liDom[i].children[0].style.opacity = '';
+          liDom[i].children[0].style.left = '';
+        }
+        liDom[index].style.color = 'rgba(0,0,0,0.9)'
+        liDom[index].children[0].style.opacity = '1'
+        liDom[index].children[0].style.left = '-18px'
+
+        localStorage.setItem('localData',[val1,index]);
+      }
+
+      autoClick(that,7,0)
 
     },
     watch: {
@@ -744,7 +770,7 @@
     height: 40px;
     /* bottom: 8px; */
     left: -30px;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.35);
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     /* opacity: 0; */
@@ -756,12 +782,12 @@
     position: relative;
     width: 100%;
     height: 20%;
-    line-height: 44px;
+    line-height: 48px;
     float: left;
     list-style: none;
     text-align: center;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 1);
     transition: all .5s linear;
     font-size: 18px;
     margin: 0px auto;
@@ -772,11 +798,13 @@
   .sideIcon {
     position: absolute;
     left: -50px;
+    /* left: -18px; */
     top: 18px;
     height: 18px;
     width: 18px;
     transition: left .3s ease;
     opacity: 0;
+    /* opacity: 1; */
   }
 
   .side-right-ul li:hover i {
