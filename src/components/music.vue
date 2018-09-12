@@ -270,7 +270,7 @@
     height: 100%;
     left: 0;
     top: 0;
-    background-color: rgb(214, 105, 224);
+    background-color: rgba(214, 105, 224,0);
   }
 
   .music-main {

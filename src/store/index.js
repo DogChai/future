@@ -8,12 +8,13 @@ var state = {};
 
 var localData = '';
 if (localStorage.getItem('localData')) {
-  localData = localStorage.getItem('localData');
-
+  localData = localStorage.getItem('localData').split(',');
+  console.log(localStorage.getItem('localData'),localData)
   // 变量
   state = {
     sideWhere: localData[0] + 'px',
     clickWhere: localData[0] + 'px',
+    index: localData[1],
     eatData: {},
     musicData: [],
     // 公共音乐变量
@@ -36,6 +37,7 @@ if (localStorage.getItem('localData')) {
   state = {
     sideWhere: '7px',
     clickWhere: '7px',
+    index: 0,
     eatData: {},
     musicData: [],
     // 公共音乐变量
