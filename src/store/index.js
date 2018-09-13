@@ -9,7 +9,7 @@ var state = {};
 var localData = '';
 if (localStorage.getItem('localData')) {
   localData = localStorage.getItem('localData').split(',');
-  console.log(localStorage.getItem('localData'),localData)
+  // console.log(localStorage.getItem('localData'),localData)
   // 变量
   state = {
     sideWhere: localData[0] + 'px',
@@ -59,7 +59,12 @@ if (localStorage.getItem('localData')) {
 
 // 计算方法
 const mutations = {
-
+  changeIndex(state,n) {
+    state.index = n;
+  },
+  changeClickWhere(state,n) {
+    state.clickWhere = n;
+  }
 }
 
 //在显示之前进行计算

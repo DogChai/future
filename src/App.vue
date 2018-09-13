@@ -277,11 +277,18 @@ export default {
         this.$store.state.sideWhere = this.chooseTop;
       }
     },
+    changeStore(val) {
+      // var val = parseInt(val);
+      this.$store.commit('changeIndex',parseInt(this.pageNum));
+      this.$store.commit('changeClickWhere',val);
+    },
     clickLi: function(e) {
       this.saveNum = e.currentTarget.dataset.where + "px";
-      this.$store.state.clickWhere = this.saveNum;
+      // this.$store.state.clickWhere = this.saveNum;
       this.pageNum = e.currentTarget.dataset.index;
-      this.$store.state.index = e.currentTarget.dataset.index;
+      // this.$store.state.index = e.currentTarget.dataset.index;
+      // console.log(e.currentTarget.dataset.index);
+      this.changeStore(this.saveNum);
       this.autoPath();
       this.ifClick = true;
       if (e.currentTarget.dataset.path !== this.$route.path) {
@@ -307,43 +314,26 @@ export default {
       if (that.$store.state.index == 0) {
         that.pageArr = ["/index", "/show", "/music", "/see", "/eat"];
         that.$router.push({ path: that.pageArr[0] });
+        that.pageNum = 0;
       } else if (that.$store.state.index == 1) {
         that.pageArr = ["/show", "/music", "/see", "/eat", "/index"];
         that.$router.push({ path: that.pageArr[0] });
+        that.pageNum = 1;
       } else if (that.$store.state.index == 2) {
         that.pageArr = ["/music", "/see", "/eat", "/index", "/show"];
         that.$router.push({ path: that.pageArr[0] });
+        that.pageNum = 2;
       } else if (that.$store.state.index == 3) {
         that.pageArr = ["/see", "/eat", "/index", "/show", "/music"];
         that.$router.push({ path: that.pageArr[0] });
+        that.pageNum = 3;
       } else if (that.$store.state.index == 4) {
         that.pageArr = ["/eat", "/index", "/show", "/music", "/see"];
         that.$router.push({ path: that.pageArr[0] });
+        that.pageNum = 4;
       }
-    }
-  },
-  computed: {
-    ...mapState([])
-  },
-  mounted: function() {
-    // console.log(axios);
-    var that = this;
-    axios.get("../static/json/music.json").then(
-      response => {
-        console.log(response);
-        that.musicData = response.data;
-        that.$store.state.musicData = response.data;
-      },
-      response => {
-        console.log(response);
-      }
-    );
-
-    document.getElementById("audio").addEventListener("timeupdate", function() {
-      console.log(this.currentTime);
-    });
-
-    function throttle(fn, gapTime) {
+    },
+    throttle(fn, gapTime) {
       if (gapTime == null || gapTime == undefined) {
         gapTime = 1500;
       }
@@ -358,19 +348,54 @@ export default {
           _lastTime = _nowTime;
         }
       };
-    }
+    },
+    mouseing() {
+      var that = this;
+      var whereArr = [7, 62, 117, 172, 227];
+      window.onmousewheel = this.throttle(function(e) {
+        // console.log(e);
+        if(that.pageNum == 4) {
+          that.pageNum = 4;
+          that.pageArr = that.pageArr = ["/eat", "/index", "/show", "/music", "/see"];
+          return false;
+        }  
 
-    var pageDown = 0;
-    var whereArr = [7, 62, 117, 172, 227];
 
-    function autoClick(t, val1, index) {
-      // console.log(val1,val2);
+        if (e.deltaY > 0) {
+          that.pageNum++;
+          if (that.pageNum >= 5) {
+            that.pageNum = 0;
+          }
+
+          // console.log(that.pageNum);
+          //获得数组第一个元素并删除
+          var first = that.pageArr.shift();
+
+          //把第一位添加到最后一位
+          that.pageArr.push(first);
+          // that.$router.push({ path: that.pageArr[0] });
+        } else if (e.deltaY < 0) {
+          if (that.pageNum != 0) {
+            that.pageNum--;
+            var end = that.pageArr.pop();
+            that.pageArr.unshift(end);
+            // that.$router.push({ path: that.pageArr[0] });
+          }
+        }
+
+        console.log(that.pageNum,that.pageArr)
+        that.autoClick(that, whereArr[that.pageNum], that.pageNum);
+      }, 500);
+    },
+    autoClick(t, val1, index) {
+      t.$router.push({ path: t.pageArr[0] });
       val1 = parseInt(val1);
-      // console.log(parseInt(val1),index)
+      
       t.saveNum = val1 + "px";
-      console.log(t.saveNum);
-      t.$store.state.clickWhere = t.saveNum;
-      // this.ifClick = true;
+      // console.log(index);
+      // t.$store.state.clickWhere = t.saveNum;
+      t.changeStore(t.saveNum);
+      
       let liDom = document.getElementsByClassName("sideLi");
       for (var i = 0; i < liDom.length; i++) {
         liDom[i].style.color = "rgba(255,255,255,0.9)";
@@ -384,8 +409,62 @@ export default {
       localStorage.setItem("localData", [val1, index]);
     }
 
+  },
+  computed: {
+    ...mapState([])
+  },
+  mounted: function() {
+    // console.log(axios);
+    var that = this;
+    axios.get("../static/json/music.json").then(
+      response => {
+        // console.log(response);
+        that.musicData = response.data;
+        that.$store.state.musicData = response.data;
+      },
+      response => {
+        console.log(response);
+      }
+    );
+
+    document.getElementById("audio").addEventListener("timeupdate", function() {
+      console.log(this.currentTime);
+    });
+    
+
+    // window.addEventListener('mousewheel', throttle(function(e) {
+    //   console.log(e);
+    //   if(e.deltaY > 0) {
+    //     that.pageNum++;
+    //     if (that.pageNum >= 5) {
+    //       that.pageNum = 0;
+    //     }
+
+    //     // console.log(that.pageNum);
+    //     //获得数组第一个元素并删除
+    //     var first = that.pageArr.shift();
+
+    //     //把第一位添加到最后一位
+    //     that.pageArr.push(first);
+    //     that.$router.push({path: that.pageArr[0]})
+    //   }
+    //   else if(e.deltaY < 0) {
+    //     if (that.pageNum != 0) {
+    //       that.pageNum--;
+    //       var end = that.pageArr.pop();
+    //       that.pageArr.unshift(end);
+    //       that.$router.push({path: that.pageArr[0]});
+
+    //     }
+    //   }
+
+    //   autoClick(that,whereArr[that.pageNum],that.pageNum)
+    // },500))
+
+
+    that.mouseing();
     that.pageNum = that.$store.state.index;
-    autoClick(that, that.$store.state.clickWhere, that.$store.state.index);
+    that.autoClick(that, that.$store.state.clickWhere, that.$store.state.index);
     that.autoPath();
 
     function mouseCanvas() {
@@ -572,12 +651,13 @@ export default {
       };
 
       document.body.onclick = function(e) {
-        console.log(e);
+        // console.log(e);
         e = e || window.event;
         int(e.clientX, e.clientY);
       };
     }
     mouseCanvas();
+    
   },
   watch: {
     $route(to, from) {
@@ -587,7 +667,18 @@ export default {
       } else {
         this.transitionName = "slide-bottom";
       }
-    }
+    },
+    // pageArr() {
+    //   console.log(this.pageArr)
+    //   if(this.pageArr[0] == '/eat') {
+    //     window.onmousewheel = null;
+    //     console.log(window.onmousewheel)
+    //   }else {
+    //     if(window.onmousewheel == null) {
+    //       this.mouseing();
+    //     }
+    //   }
+    // }
   }
 };
 </script>
@@ -628,7 +719,7 @@ export default {
 }
 
 #bg-image {
-  background: url("./assets/images/music.jpg");
+  background: url("./assets/images/new1.jpg");
   background-size: cover;
   position: absolute;
   top: 0;

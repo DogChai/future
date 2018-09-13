@@ -18,7 +18,7 @@
 
         <!-- 加载动画 -->
         <div class="lds-css ng-scope load-animate" :style="{opacity: loadOpacity}">
-            <div style="width:100%;height:100%" class="lds-ellipsis">
+            <!-- <div style="width:100%;height:100%" class="lds-ellipsis">
                 <div>
                     <div></div>
                 </div>
@@ -34,7 +34,8 @@
                 <div>
                     <div></div>
                 </div>
-            </div>
+            </div> -->
+            <img src="../assets/images/loading1.svg" alt="">
         </div>
 
         <GeminiScrollbar class="my-scroll-bar">
@@ -58,7 +59,7 @@
                         <h1>{{item.title}}</h1>
                         <p>主料: {{item.ingredients}}</p>
                         <p>配料: {{item.burden}}</p>
-                        <p>步骤: </p>
+                        <!-- <p>步骤: </p> -->
                         <ul>
                             <li v-for='arr in item.steps'>
                                 <div class="left-img">
@@ -270,9 +271,20 @@ export default {
     this.upOpacity = 1;
     var that = this;
 
-    document.getElementsByClassName('my-scroll-bar')[0].addEventListener('mousewhell', function() {
-        console.log(1)
-    })
+    // document
+    //   .getElementsByClassName("my-scroll-bar")[0]
+    //   .addEventListener("mousewhell", function() {
+    //     console.log(1);
+    //   });
+
+    // document.getElementsByClassName('my-scroll-bar')[0].addEventListener('mouseover', function() {
+    //   console.log('over');
+    //   window.onmousewheel = null;
+    //   console.log(that)
+    //   document.addEventListener('mouseleave', function() {
+    //     console.log('leave')
+    //   })
+    // })  
   },
   destroyed: function() {}
 };
@@ -285,7 +297,7 @@ export default {
   height: 100%;
   left: 0;
   top: 0;
-  background-color: rgba(172, 221, 238, 0.1);
+  /* background-color: rgba(0, 0, 0, 0.1); */
 }
 
 .no-menu {
@@ -313,25 +325,30 @@ export default {
 }
 
 .eat-details {
-  width: 100%;
+  width: 80%;
+  margin: 0 auto;
   height: auto;
   color: black;
+  padding-top: 10px;
 }
 
 .eat-details h1 {
   font-size: 30px;
-  margin-top: 5px;
-  margin-bottom: 14px;
-  text-shadow: 0 0 2px white;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  color: white;
+  /* text-shadow: 0 0 2px white; */
 }
 
 .eat-details p {
-  text-align: left;
+  text-align: center;;
   width: 80%;
   height: auto;
-  margin: 10px auto;
-  font-size: 20px;
-  text-shadow: 0 0 2px white;
+  margin: 16px auto;
+  font-size: 22px;
+  /* font-weight: bold; */
+  color: white;
+  /* text-shadow: 0 0 2px white; */
   line-height: 25px;
 }
 
@@ -339,51 +356,64 @@ export default {
   list-style: none;
   width: 100%;
   height: auto;
-  margin-top: 20px;
+  /* margin-top: 20px; */
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
 }
 
 .eat-details li {
-  width: 80%;
-  margin: 10px auto;
-  height: auto;
+  width: 50%;
+  margin: 10px 0;
+  /* max-height: 250px; */
   overflow: hidden;
   position: relative;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  color: white;
 }
 
 .eat-details-wrap {
+  width: 100%;
   transition: all 0.3s;
 }
 
 .eat-details .left-img {
-  height: 110%;
-  width: 220px;
-  position: absolute;
+  /* height: 110%; */
+  width: 50%;
+  height: 280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* position: absolute;
   top: 0;
   left: 0;
-  bottom: 0;
+  bottom: 0; */
 }
 
 .eat-details .left-img img {
-  width: 100%;
+  width: 80%;
   height: 100%;
 }
 
 .eat-details .right-text {
   height: auto;
-  min-height: 150px;
-  width: 405px;
-  float: left;
+  /* min-height: 150px; */
+  width: 50%;
+  /* float: left; */
   box-sizing: border-box;
-  padding-top: 15px;
+  /* padding-top: 15px;
   padding-bottom: 15px;
   padding-left: 15px;
-  padding-right: 15px;
-  text-align: left;
-  background-color: rgba(255, 255, 255, 0.1);
-  margin-left: 230px;
-  color: black;
-  font-size: 20px;
-  text-shadow: 0 0 2px white;
+  padding-right: 15px; */
+  /* text-align: left; */
+  /* background-color: rgba(255, 255, 255, 0.1); */
+  /* margin-left: 230px; */
+  color: white;
+  font-size: 22px;
+  /* text-shadow: 0 0 2px white; */
 }
 
 .eat-wrap {
@@ -411,7 +441,7 @@ export default {
 
 .eat-list {
   width: 100%;
-  min-height: 160px;
+  min-height: 0px;
   height: auto;
   margin: 0 auto;
   position: relative;
@@ -422,6 +452,7 @@ export default {
   flex-flow: row wrap;
   justify-content: center;
   align-items: baseline;
+  background-color: rgba(0, 0, 0, 0.35);
 }
 
 .eat-lists {
@@ -447,13 +478,13 @@ export default {
   line-height: 38px;
   left: 5%;
   font-size: 25px;
-  color: rgba(25, 25, 25, 0.6);
+  color: rgba(0, 0, 0, 0.8);
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .eat-return:hover {
-  color: rgba(25, 25, 25, 0.9);
+  color: rgba(25, 25, 25, 1);
 }
 
 .eat-lists:hover .eat-headerimg {
@@ -504,7 +535,7 @@ export default {
   height: 42px;
   float: left;
   margin-left: 15%;
-  /* margin-right: 10px; */
+  margin-right: 2px;
   outline: none;
   box-sizing: border-box;
   padding-left: 18px;
@@ -512,14 +543,14 @@ export default {
   padding-top: 3px;
   padding-bottom: 3px;
   font-size: 20px;
-  background-color: rgba(25, 25, 25, 0.05);
+  background-color: rgba(0, 0, 0, 0.35);
   /* border: none; */
   /* border: 2px solid rgb(138, 181, 255); */
-  border: 2px solid white;
-  border-right: none;
+  border: 2px solid rgba(0,0,0,0.8);
+  /* border-right: none; */
   font-family: "dogchai";
   letter-spacing: 1px;
-  color: black;
+  color: white;
   transition: all 0.3s ease;
 }
 
@@ -536,18 +567,19 @@ export default {
   border: none;
   outline: none;
   color: white;
-  background-color: rgb(138, 181, 255);
+  background-color: rgba(0, 0, 0, 0.6);
   transition: all 0.3s ease;
   font-size: 16px;
   letter-spacing: 2px;
 }
 
 .eat-input:focus {
-  /* box-shadow: 0 0 2px rgba(25, 25, 25, 0.3); */
+  box-shadow: 0 0 2px rgba(25, 25, 25, 0.3);
 }
 
 .eat-btn:hover {
-  /* box-shadow: 0 0 2px rgba(25, 25, 25, 0.3); */
+  background-color: rgba(0, 0, 0, 0.66);
+  box-shadow: 0 0 2px rgba(25, 25, 25, 0.3);
 }
 
 .down {

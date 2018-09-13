@@ -61,7 +61,7 @@
     height: 100%;
     left: 0;
     top: 0;
-    background-color: rgba(54, 223, 180, 0);
+    /* background-color: rgba(0, 0, 0, 0.1); */
   }
 
   .down {
