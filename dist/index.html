@@ -1,0 +1,35 @@
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>SeemDream</title><link rel="shortcut icon" href=http://www.wuyayu.com/moon.ico><style>body {
+      width: 100%;
+      height: 100%;
+    }
+
+    .index-load {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9999;
+      background-color: aliceblue;
+    }
+
+    .index-load img {
+      width: 200px;
+      height: 200px;
+      position: absolute;
+      top: 42%;
+      left: 50%;
+      margin-top: -100px;
+      margin-left: -100px;
+    }</style><link href=./app.4045eefe5c23c6b0c7ad2fcdc043fb0e.css rel=stylesheet></head><body><div id=app></div><div class=index-load><img src=./static/images/loading1.svg alt=""><canvas id=c></canvas></div><script type=text/javascript src=./static/js/manifest.3ad1d5771e9b13dbdad2.js></script><script type=text/javascript src=./static/js/vendor.80b93ef135bed6dda574.js></script><script type=text/javascript src=./static/js/app.b3832dd9b7b14330c8e2.js></script></body><script>document.onreadystatechange = function () {
+    if (document.readyState == 'complete') {
+      document.getElementsByClassName('index-load')[0].style.opacity = 0;
+      let timer = null;
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        clearTimeout(timer);
+        document.getElementsByClassName('index-load')[0].style.zIndex= -9999;
+      }, 500);
+
+    }
+  }</script></html>
