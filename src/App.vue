@@ -693,8 +693,8 @@ export default {
 
 <style>
 @font-face {
-  font-family: "dogchai";
-  src: url("http://p6bweflo3.bkt.clouddn.com/future.ttf");
+  font-family: "seemdream";
+  src: url("http://p6bweflo3.bkt.clouddn.com/%E6%96%B9%E6%AD%A3%E5%AE%8B%E5%88%BB%E6%9C%AC%E7%A7%80%E6%A5%B7%E7%AE%80%E4%BD%93.TTF");
 }
 
 .bounceIn {
@@ -702,7 +702,7 @@ export default {
 }
 
 #app {
-  font-family: "dogchai";
+  font-family: "seemdream";
   text-align: center;
   color: #2c3e50;
   position: fixed;
@@ -719,7 +719,8 @@ export default {
 }
 
 #bg-image {
-  background: url("./assets/images/new1.jpg");
+  /* background: url("./assets/images/qi_mini.jpg"); */
+  background: url('http://p46wrelzu.bkt.clouddn.com/qi_mini.jpg');
   background-size: cover;
   position: absolute;
   top: 0;

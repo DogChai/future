@@ -18,7 +18,7 @@
 
         <!-- 加载动画 -->
         <div class="lds-css ng-scope load-animate" :style="{opacity: loadOpacity}">
-            <!-- <div style="width:100%;height:100%" class="lds-ellipsis">
+            <div style="width:100%;height:100%" class="lds-ellipsis">
                 <div>
                     <div></div>
                 </div>
@@ -34,8 +34,8 @@
                 <div>
                     <div></div>
                 </div>
-            </div> -->
-            <img src="../assets/images/loading1.svg" alt="">
+            </div>
+            <!-- <img src="../assets/images/loading1.svg" alt=""> -->
         </div>
 
         <GeminiScrollbar class="my-scroll-bar">
@@ -300,6 +300,10 @@ export default {
   /* background-color: rgba(0, 0, 0, 0.1); */
 }
 
+.load-animate {
+  margin: 20px auto;
+}
+
 .no-menu {
   width: 300px;
   height: 60px;
@@ -314,6 +318,7 @@ export default {
 .my-scroll-bar {
   position: absolute;
   width: 80%;
+  min-width: 600px;
   top: 115px;
   bottom: 40px;
   height: auto !important;
@@ -383,7 +388,7 @@ export default {
 .eat-details .left-img {
   /* height: 110%; */
   width: 50%;
-  height: 280px;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -452,7 +457,8 @@ export default {
   flex-flow: row wrap;
   justify-content: center;
   align-items: baseline;
-  background-color: rgba(0, 0, 0, 0.35);
+  background-color: rgba(26, 26, 26, 0.21);
+  /* padding-bottom: 24px; */
 }
 
 .eat-lists {
@@ -478,13 +484,13 @@ export default {
   line-height: 38px;
   left: 5%;
   font-size: 25px;
-  color: rgba(0, 0, 0, 0.8);
+  color: rgba(56, 153, 232, 0.8);
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .eat-return:hover {
-  color: rgba(25, 25, 25, 1);
+  color: rgba(56, 153, 232, 1);
 }
 
 .eat-lists:hover .eat-headerimg {
@@ -543,12 +549,13 @@ export default {
   padding-top: 3px;
   padding-bottom: 3px;
   font-size: 20px;
-  background-color: rgba(0, 0, 0, 0.35);
+  background-color: rgba(0, 0, 0, 0.1);
   /* border: none; */
   /* border: 2px solid rgb(138, 181, 255); */
-  border: 2px solid rgba(0,0,0,0.8);
+  border: 2px solid rgba(56, 153, 232, 0.6);
   /* border-right: none; */
-  font-family: "dogchai";
+  font-family: "seemdream";
+  /* font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","\5FAE\8F6F\96C5\9ED1",Arial,sans-serif; */
   letter-spacing: 1px;
   color: white;
   transition: all 0.3s ease;
@@ -561,13 +568,14 @@ export default {
   text-align: center;
   float: left;
   /* margin-left: 50px; */
-  font-family: "dogchai" !important;
+  font-family: "seemdream" !important;
+  /* font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","\5FAE\8F6F\96C5\9ED1",Arial,sans-serif; */
   cursor: pointer;
   background-color: transparent;
   border: none;
   outline: none;
   color: white;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(56, 153, 232, 0.6);
   transition: all 0.3s ease;
   font-size: 16px;
   letter-spacing: 2px;
@@ -578,7 +586,7 @@ export default {
 }
 
 .eat-btn:hover {
-  background-color: rgba(0, 0, 0, 0.66);
+  background-color: rgba(56, 153, 232, 0.66);
   box-shadow: 0 0 2px rgba(25, 25, 25, 0.3);
 }
 
