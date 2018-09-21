@@ -12,7 +12,7 @@
           <i class="fa fa-moon sideIcon"></i>
         </li>
         <li class="sideLi" data-index='1' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/show' data-where="62">
-          案例
+          梦想
           <i class="fa fa-sun sideIcon"></i>
         </li>
         <li class="sideLi" data-index='2' @mouseover='moveChoose' @mouseout='leaveLi' @click='clickLi' data-path='/music' data-where="117">
