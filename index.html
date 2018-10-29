@@ -88,13 +88,6 @@
     }
 
   </style>
-  <!-- <script type="text/javascript" src="http://cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script>
-  <script type="text/javascript">
-     $youziku.load("body", "f50428de879d4b468c8bbae90f846521", "AaLinlaoshidezi");
-     /*$youziku.load("#id1,.class1,h1", "f50428de879d4b468c8bbae90f846521", "AaLinlaoshidezi");*/
-     /*．．．*/
-     $youziku.draw();
-  </script> -->
   <script>
     document.onreadystatechange = function () {
       if (document.readyState == 'complete') {
@@ -115,81 +108,97 @@
     body {
       width: 100%;
       height: 100%;
-    }
 
-    .index-load {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 9999;
-      background-color: aliceblue;
-    }
 
-    .index-load img {
-      width: 200px;
-      height: 200px;
-      position: absolute;
-      top: 42%;
-      left: 50%;
-      margin-top: -100px;
-      margin-left: -100px;
-    }
+      .index-load {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 9999;
+        background-color: aliceblue;
+      }
 
-    .loading-p {
-      width: 180px;
-      height: 6px;
-      position: absolute;
-      left: 50%;
-      margin-left: -90px;
-      background-color: rgba(0, 0, 0, 0.3);
-      top: 50%;
-      margin-top: 100px;
-    }
+      .index-load img {
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        top: 42%;
+        left: 50%;
+        margin-top: -100px;
+        margin-left: -100px;
+      }
 
-    ::-webkit-input-placeholder {
-      /* WebKit browsers */
-      color: #fff;
-    }
+      .loading-p {
+        width: 180px;
+        height: 6px;
+        position: absolute;
+        left: 50%;
+        margin-left: -90px;
+        background-color: rgba(0, 0, 0, 0.3);
+        top: 50%;
+        margin-top: 100px;
+      }
 
-    :-moz-placeholder {
-      /* Mozilla Firefox 4 to 18 */
-      color: #fff;
-      opacity: 1;
-    }
+      *::-webkit-input-placeholder {
+        /* WebKit browsers */
+        color: #fff;
+      }
 
-    ::-moz-placeholder {
-      /* Mozilla Firefox 19+ */
-      color: #fff;
-      opacity: 1;
-    }
+      *:-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color: #fff;
+        opacity: 1;
+      }
 
-    :-ms-input-placeholder {
-      /* Internet Explorer 10+ */
-      color: #fff;
-    }
+      *::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        color: #fff;
+        opacity: 1;
+      }
+
+      *:-ms-input-placeholder {
+        /* Internet Explorer 10+ */
+        color: #fff;
+      }
+
+      *::-webkit-input-placeholder {
+        /* WebKit browsers */
+        color: #fff;
+      }
+
+      *:-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color: #fff;
+      }
+
+      *::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        color: #fff;
+      }
+
+      *:-ms-input-placeholder {
+        /* Internet Explorer 10+ */
+        color: #fff;
+      }
 
   </style>
 </head>
 
 <body>
   <div id="app">
-
   </div>
+  <!-- <div id="bg-image"></div> -->
 
   <div class="index-load">
-    <!-- <img src="./static/images/loading1.svg" alt=""> -->
     <div class="lds-css ng-scope">
       <div style="width:100%;height:100%" class="lds-ball">
         <div></div>
       </div>
-
-      <!-- <p class="loading-p"><span></span></p> -->
     </div>
-    <canvas id="c"></canvas>
+    <!-- <canvas id="c"></canvas> -->
   </div>
-
 </body>
 
 

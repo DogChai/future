@@ -445,7 +445,7 @@ export default {
 }
 
 .eat-list {
-  width: 100%;
+  width: 90%;
   min-height: 0px;
   height: auto;
   margin: 0 auto;
@@ -457,7 +457,7 @@ export default {
   flex-flow: row wrap;
   justify-content: center;
   align-items: baseline;
-  background-color: rgba(26, 26, 26, 0.21);
+  /* background-color: rgba(26, 26, 26, 0.21); */
   /* padding-bottom: 24px; */
 }
 
@@ -484,13 +484,14 @@ export default {
   line-height: 38px;
   left: 5%;
   font-size: 25px;
-  color: rgba(56, 153, 232, 0.8);
+  /* color: rgba(56, 153, 232, 0.8); */
+  color: rgba(255, 255, 255, 0.7);
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .eat-return:hover {
-  color: rgba(56, 153, 232, 1);
+  color: rgba(255, 255, 255, 1);
 }
 
 .eat-lists:hover .eat-headerimg {
@@ -524,6 +525,9 @@ export default {
   background-color: rgba(25, 25, 25, 0.46);
   color: white;
   font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
 }
 
 .eat-top {
@@ -552,7 +556,8 @@ export default {
   background-color: rgba(0, 0, 0, 0.1);
   /* border: none; */
   /* border: 2px solid rgb(138, 181, 255); */
-  border: 2px solid rgba(56, 153, 232, 0.6);
+  /* border: 2px solid rgba(56, 153, 232, 0.6); */
+  border: 2px solid rgba(255, 255, 255, 0.7);
   /* border-right: none; */
   font-family: "seemdream";
   /* font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","\5FAE\8F6F\96C5\9ED1",Arial,sans-serif; */
@@ -561,9 +566,10 @@ export default {
   transition: all 0.3s ease;
 }
 
+
 .eat-btn {
   width: 10%;
-  height: 42px;
+  height: 44px;
   line-height: 22px;
   text-align: center;
   float: left;
@@ -575,10 +581,12 @@ export default {
   border: none;
   outline: none;
   color: white;
-  background-color: rgba(56, 153, 232, 0.6);
+  background-color: rgba(0,0,0,0.4);
   transition: all 0.3s ease;
   font-size: 16px;
   letter-spacing: 2px;
+  margin-left: 10px;
+  margin-top: -1px;
 }
 
 .eat-input:focus {
@@ -586,7 +594,7 @@ export default {
 }
 
 .eat-btn:hover {
-  background-color: rgba(56, 153, 232, 0.66);
+  background-color: rgba(0,0,0,0.6);
   box-shadow: 0 0 2px rgba(25, 25, 25, 0.3);
 }
 
