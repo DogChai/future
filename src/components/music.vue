@@ -50,7 +50,7 @@
             <span>{{item.singer}}</span>
             <span>{{musicBelongData[item.belong]}}</span>
             <span>{{item.time}}</span>
-            <audio src="../../static/musicData/奏有 - かたわれ時.mp3" :id="item.id"></audio>
+            <audio src="" :id="item.id"></audio>
           </div>
         </GeminiScrollbar>
       </div>
@@ -60,6 +60,7 @@
 
 <script>
   import axios from 'axios';
+  import $ from 'jquery';
   import Vue from 'vue';
   import GeminiScrollbar from 'vue-gemini-scrollbar';
   Vue.use(GeminiScrollbar);
@@ -246,18 +247,40 @@
       this.downOpacity = 1;
       this.upName = true;
       this.upOpacity = 1;
-      axios.get('../static/json/music.json').then((response) => {
-        // console.log(response.data.length)
-        that.musicData = response.data;
-        that.$store.state.musicData = response.data;
-        that.musicData = response.data;
-        that.musicIndexDataArr = that.musicData[that.musicIndex].arr;
-        that.rightBtnText = that.musicData.length - 5;
-        that.leftBtnText = 0;
-      }, (response) => {
-        console.log(response)
-      })
+      // axios.get('../static/json/music.json').then((response) => {
+      //   // console.log(response.data.length)
+      //   that.musicData = response.data;
+      //   that.$store.state.musicData = response.data;
+      //   that.musicData = response.data;
+      //   that.musicIndexDataArr = that.musicData[that.musicIndex].arr;
+      //   that.rightBtnText = that.musicData.length - 5;
+      //   that.leftBtnText = 0;
+      // }, (response) => {
+      //   console.log(response)
+      // })
       that.musicIndex = 0;
+
+      // axios.get('http://music.163.com/api/user/playlist/?offset=0&limit=1001&uid=62879556').then((response)=> {
+      //   console.log(response);
+      // }, (response)=> {
+      //   console.log(response);
+      // })
+      let uid = '62879556';
+      $.ajax({
+        type: 'GET',
+        url: 'http://s.music.163.com/search/get/?type=1&limit=1&s=%E6%9B%B9%E6%93%8D',
+        dataType: 'jsonp',
+        // data: 'types=userlist&uid=' + uid,
+        success(res) {
+          console.log(res);
+        },
+        fail(res) {
+          console.log(res);
+        },
+        complete(res) {
+          console.log(res)
+        }
+      })
       
     }
   };

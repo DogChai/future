@@ -2,7 +2,7 @@
   <div id="app">
     <canvas id="fireworks" ></canvas>
     <div id="bg-image" class='frostedglass'></div>
-    <audio id="audio" :volume='volumeRate' :currentTime='musicRate' src="http://ohx9cuj3d.bkt.clouddn.com/%E5%AE%89%E7%94%B0%E3%83%AC%E3%82%A4%20-%20Brand%20New%20Day.mp3"></audio>
+    <audio id="audio" :volume='volumeRate' :currentTime='musicRate' src=""></audio>
     <div class="side-right">
       <ul class="side-right-ul">
         <div class="side-choose" :style="{top: this.$store.state.clickWhere}"></div>
@@ -698,7 +698,7 @@ export default {
 }
 
 #bg-image {
-  background: url("http://p46wrelzu.bkt.clouddn.com/qi_mini.jpg");
+  background: url("../static/images/bg.png");
   background-size: cover;
   position: absolute;
   top: 0;
@@ -707,6 +707,9 @@ export default {
   right: 0;
   z-index: -10;
   filter: blur(30px);
+  /* background-size:150% 150%; */
+  /* overflow: hidden; */
+  transform: scale(1.2);
 }
 
 #fireworks {
